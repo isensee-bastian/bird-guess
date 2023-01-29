@@ -1,0 +1,7 @@
+{
+  "name": "birds",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
