@@ -6,13 +6,13 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Tab 2</IonTitle>
+          <IonTitle>Settings</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">Tab 2</IonTitle>
+            <IonTitle size="large">Settings</IonTitle>
           </IonToolbar>
         </IonHeader>
       </IonContent>

@@ -1,31 +1,56 @@
 import './BirdCard.css';
 
 import React from 'react';
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { useIonAlert, useIonToast, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
 
 
 interface BirdCardProps {
-
+    imgFile: string,
+    name: string,
 }
 
-const BirdCard: React.FC<BirdCardProps> = ({ }) => {
-    const playSound = () => {
-        const sound = new Audio("assets/birds/pileated_woodpecker.mp3");
-        sound.play();
+const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name }) => {
+    const [presentAlert] = useIonAlert();
+    const [presentToast] = useIonToast();
+
+    const showToast = (correct: boolean) => {
+        presentToast({
+            message: correct ? 'Correct answer!' : 'Wrong answer...',
+            duration: 2000,
+            position: 'bottom',
+            color: correct ? 'success' : 'danger',
+        });
     };
+
+    const showConfirm = () => {
+        presentAlert({
+            header: name,
+            message: `Are you guessing ${name}?`,
+            buttons: [
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                        showToast(false);
+                    },
+                },
+                {
+                    text: 'Yes',
+                    role: 'confirm',
+                    handler: () => {
+                        showToast(true);
+                    },
+                },
+            ],
+        })
+    }
 
     return (
         <IonCard>
-            <img alt="Bird image" src="assets/birds/pileated_woodpecker.jpg" height="300" />
-            <IonCardHeader>
-                <IonCardTitle>Pileated Woodpecker</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent>
-                <p>Image: Shenandoah National Park from Virginia, Public domain, via Wikimedia Commons, https://commons.wikimedia.org/wiki/File:Pileated_Woodpecker_(9597212081),_crop.jpg</p>
-                <p>Sound: Russ Wigh, XC649554. Accessible at www.xeno-canto.org/649554. Creative Commons Attribution-NonCommercial-ShareAlike 4.0</p>
-                <IonButton onClick={() => playSound()}>Play Sound</IonButton>
+            <IonCardContent onClick={() => showConfirm()}>
+                <img alt="Bird image" src={imgFile} />
             </IonCardContent>
-        </IonCard>
+        </IonCard >
     );
 };
 
