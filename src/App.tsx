@@ -35,7 +35,6 @@ import './theme/variables.css';
 
 setupIonicReact();
 
-// TODO: Add credits and licenses of images and sounds.
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>

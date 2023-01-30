@@ -1,26 +1,17 @@
 import './BirdCard.css';
 
 import React from 'react';
-import { useIonAlert, useIonToast, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { useIonAlert, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle } from '@ionic/react';
 
 
 interface BirdCardProps {
     imgFile: string,
     name: string,
+    onConfirm: (name: string) => void,
 }
 
-const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name }) => {
+const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name, onConfirm }) => {
     const [presentAlert] = useIonAlert();
-    const [presentToast] = useIonToast();
-
-    const showToast = (correct: boolean) => {
-        presentToast({
-            message: correct ? 'Correct answer!' : 'Wrong answer...',
-            duration: 2000,
-            position: 'bottom',
-            color: correct ? 'success' : 'danger',
-        });
-    };
 
     const showConfirm = () => {
         presentAlert({
@@ -30,25 +21,25 @@ const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name }) => {
                 {
                     text: 'No',
                     role: 'cancel',
-                    handler: () => {
-                        showToast(false);
-                    },
                 },
                 {
                     text: 'Yes',
                     role: 'confirm',
                     handler: () => {
-                        showToast(true);
+                        onConfirm(name);
                     },
                 },
             ],
-        })
-    }
+        });
+    };
 
     return (
-        <IonCard>
-            <IonCardContent onClick={() => showConfirm()}>
-                <img alt="Bird image" src={imgFile} />
+        <IonCard className="bird-card" button={true} >
+            <IonCardHeader>
+                <IonCardSubtitle>{name}</IonCardSubtitle>
+            </IonCardHeader>
+            <IonCardContent className="bird-content" onClick={() => showConfirm()}>
+                <img className="bird-image" alt="Bird image" src={imgFile} />
             </IonCardContent>
         </IonCard >
     );
