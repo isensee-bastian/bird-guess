@@ -2,13 +2,8 @@ import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle
 import './Tab1.css';
 import { musicalNote } from 'ionicons/icons';
 import BirdGrid from '../components/BirdGrid';
-import { useEffect, useState } from 'react';
-
-interface Bird {
-  name: string,
-  imgFile: string,
-  soundFile: string,
-}
+import { useState } from 'react';
+import allBirds from '../birds.json';
 
 // The first one is the correct one. Second will always be different.
 interface BirdPair {
@@ -19,17 +14,10 @@ interface BirdPair {
 
 const filePrefix = 'assets/birds/'
 
-const allBirds: Bird[] = [
-  { name: 'Pileated Woodpecker', imgFile: 'pileated_woodpecker.jpg', soundFile: 'pileated_woodpecker.mp3' },
-  { name: 'Northern Cardinal', imgFile: 'northern_cardinal.jpg', soundFile: 'northern_cardinal.mp3' },
-  { name: 'Blue Jay', imgFile: 'blue_jay.jpg', soundFile: 'blue_jay.mp3' },
-  { name: 'Black-browed Albatross', imgFile: 'black-browed_albatross.jpg', soundFile: 'black-browed_albatross.mp3' },
-  { name: 'Peregrine Falcon', imgFile: 'peregrine_falcon.jpg', soundFile: 'peregrine_falcon.mp3' },
-  { name: 'Short-eared Owl', imgFile: 'short-eared_owl.jpg', soundFile: 'short-eared_owl.mp3' },
-];
-
 // TODO: Attribute authors and license of images and sounds.
+// TODO: Consider measuring time in additon to points (consider start and stop buttons).
 const Tab1: React.FC = () => {
+
   const nextRandomInt = (maxExclusive: number): number => {
     return Math.floor(Math.random() * (maxExclusive));
   };

@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Pileated Woodpecker",
+        "imgFile": "pileated_woodpecker.jpg",
+        "soundFile": "pileated_woodpecker.mp3"
+    },
+    {
+        "name": "Northern Cardinal",
+        "imgFile": "northern_cardinal.jpg",
+        "soundFile": "northern_cardinal.mp3"
+    },
+    {
+        "name": "Blue Jay",
+        "imgFile": "blue_jay.jpg",
+        "soundFile": "blue_jay.mp3"
+    },
+    {
+        "name": "Black-browed Albatross",
+        "imgFile": "black-browed_albatross.jpg",
+        "soundFile": "black-browed_albatross.mp3"
+    },
+    {
+        "name": "Peregrine Falcon",
+        "imgFile": "peregrine_falcon.jpg",
+        "soundFile": "peregrine_falcon.mp3"
+    },
+    {
+        "name": "Short-eared Owl",
+        "imgFile": "short-eared_owl.jpg",
+        "soundFile": "short-eared_owl.mp3"
+    }
+]
