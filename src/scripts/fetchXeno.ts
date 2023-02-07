@@ -8,7 +8,7 @@ import * as https from 'https';
 // Ideas for future improvement:
 // * Consider filtering for best quality.
 // * Consider relaxing length filter if more results are needed.
-// * Consider checking the file type either with a library or by looking at the file-name ending.
+// * Consider checking the file type either with a library or by looking at the file-name ending (for now we are assuming mp3).
 //
 
 // Fields which we do not need right now have been omitted.
@@ -71,11 +71,14 @@ async function fetchRecordingMeta(name: string): Promise<Recording> {
         return Promise.reject(`No recording results found for url ${url}`);
     }
 
-    return Promise.resolve(new Recording(response.result.recordings[0]));
+    const recording = new Recording(response.result.recordings[0]);
+    console.log(`Found recording: ${recording.name}`);
+
+    return recording;
 }
 
 async function downloadRecording(targetDir: string, recording: Recording): Promise<void> {
-    if (recording.name.trim().length < 2) {
+    if (!recording.name || recording.name.trim().length < 2) {
         return Promise.reject('Bird name to use in file name must have at least two characters');
     }
 
@@ -87,6 +90,8 @@ async function downloadRecording(targetDir: string, recording: Recording): Promi
         https.get(recording.fileUrl, function (response) {
             if (response.statusCode !== 200) {
                 reject(`Unexpected status code received for url ${recording.fileUrl} : ${response.statusCode}`);
+                file.close();
+                return;
             }
 
             response.pipe(file);

@@ -56,7 +56,7 @@ var Recording = /** @class */ (function () {
 }());
 function fetchRecordingMeta(name) {
     return __awaiter(this, void 0, void 0, function () {
-        var client, queryName, url, response;
+        var client, queryName, url, response, recording;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -76,7 +76,9 @@ function fetchRecordingMeta(name) {
                     if (!response.result || !response.result.recordings || !response.result.recordings.length) {
                         return [2 /*return*/, Promise.reject("No recording results found for url ".concat(url))];
                     }
-                    return [2 /*return*/, Promise.resolve(new Recording(response.result.recordings[0]))];
+                    recording = new Recording(response.result.recordings[0]);
+                    console.log("Found recording: ".concat(recording.name));
+                    return [2 /*return*/, recording];
             }
         });
     });
