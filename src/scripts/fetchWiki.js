@@ -47,6 +47,11 @@ var https = require("https");
 // * Consider fetching (or converting to) smaller images to save storage space.
 //
 var USER_AGENT = 'BirdScript/0.1 (daniel.schulz1590@protonmail.com)';
+var CLIENT_OPTIONS = {
+    headers: {
+        'User-Agent': USER_AGENT
+    }
+};
 // Wikimedia API requires a descriptive user agent with contact information.
 // User-Agent
 // Example: MyCoolTool/1.1 (https://example.org/MyCoolTool/; MyCoolTool@example.org) UsedBaseLibrary/1.4'
@@ -106,7 +111,7 @@ function fetchImageUrl(pageTitle) {
 }
 function fetchAttribution(imageUrl) {
     return __awaiter(this, void 0, void 0, function () {
-        var start, fileName, client, url, response, artist, fieldFn;
+        var start, fileName, url, client, response, artist, credit, license, fieldFn;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -114,15 +119,16 @@ function fetchAttribution(imageUrl) {
                         return [2 /*return*/, Promise.reject('Image URL to fetch attribution for must not be empty')];
                     }
                     start = imageUrl.lastIndexOf('/');
-                    if (start < 0) {
+                    if (start < 0 || (start + 1 >= imageUrl.length - 1)) {
                         return [2 /*return*/, Promise.reject("Could not find file name in URL ".concat(imageUrl))];
                     }
-                    fileName = imageUrl.substring(start);
-                    if (start < 0) {
+                    fileName = imageUrl.substring(start + 1);
+                    if (!fileName) {
                         return [2 /*return*/, Promise.reject("Could not find file name in URL ".concat(imageUrl))];
                     }
-                    client = new rm.RestClient(USER_AGENT);
+                    console.log("Fetching attribution for ".concat(fileName));
                     url = "https://en.wikipedia.org/w/api.php?action=query&prop=imageinfo&iiprop=extmetadata&titles=File%3a".concat(fileName, "&format=json");
+                    client = new rm.RestClient(USER_AGENT);
                     return [4 /*yield*/, client.get(url)];
                 case 1:
                     response = _a.sent();
@@ -133,26 +139,46 @@ function fetchAttribution(imageUrl) {
                         return [2 /*return*/, Promise.reject("No result found for url ".concat(url))];
                     }
                     artist = "";
+                    credit = "";
+                    license = "";
                     fieldFn = function (key, value) {
                         if (key === 'Artist') {
-                            artist = value.value;
+                            var regex = /<a.*>(.*)<\/a>/g;
+                            var result = regex.exec(value.value);
+                            artist = result ? result[1] : "";
+                        }
+                        else if (key === 'Credit') {
+                            var regex = /<span.*>(.*)<\/span>/g;
+                            var result = regex.exec(value.value);
+                            credit = result ? result[1] : "";
+                        }
+                        else if (key === 'LicenseShortName') {
+                            license = value.value;
+                        }
+                        if (artist && credit && license) {
                             return true;
                         }
                         return false;
                     };
                     traverse(response.result, fieldFn);
                     if (artist.length <= 0) {
-                        return [2 /*return*/, Promise.reject("Could not find Artist in response: field is either not present or value is empty")];
+                        return [2 /*return*/, Promise.reject("Could not find artist: field is either not present or value is empty")];
                     }
-                    console.log("Found artist ".concat(artist));
-                    return [2 /*return*/, artist];
+                    if (credit.length <= 0) {
+                        return [2 /*return*/, Promise.reject("Could not find credit: field is either not present or value is empty")];
+                    }
+                    if (license.length <= 0) {
+                        return [2 /*return*/, Promise.reject("Could not find license: field is either not present or value is empty")];
+                    }
+                    console.log("Found attribution ".concat(artist, " / ").concat(credit, " / ").concat(license));
+                    return [2 /*return*/, { artist: artist, credit: credit, license: license }];
             }
         });
     });
 }
 function downloadImage(targetDir, url, title) {
     return __awaiter(this, void 0, void 0, function () {
-        var fileName, filePath, file, options;
+        var fileName, filePath, file;
         return __generator(this, function (_a) {
             if (!title || title.trim().length < 2) {
                 return [2 /*return*/, Promise.reject('Title to use in file name must have at least two characters')];
@@ -163,13 +189,8 @@ function downloadImage(targetDir, url, title) {
             fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase();
             filePath = "".concat(targetDir, "/").concat(fileName, ".jpg");
             file = fs.createWriteStream(filePath);
-            options = {
-                headers: {
-                    'User-Agent': USER_AGENT
-                }
-            };
             return [2 /*return*/, new Promise(function (resolve, reject) {
-                    https.get(url, options, function (response) {
+                    https.get(url, CLIENT_OPTIONS, function (response) {
                         if (response.statusCode !== 200) {
                             reject("Unexpected status code received for url ".concat(url, " : ").concat(response.statusCode));
                             file.close();
@@ -236,22 +257,25 @@ function main() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 4, , 5]);
-                    return [4 /*yield*/, fetchPageTitle('Pileated woodpecker')];
+                    _a.trys.push([0, 5, , 6]);
+                    return [4 /*yield*/, fetchPageTitle('Blue jay')];
                 case 1:
                     title = _a.sent();
                     return [4 /*yield*/, fetchImageUrl(title)];
                 case 2:
                     url = _a.sent();
-                    return [4 /*yield*/, downloadImage('/home/bisensee', url, 'Pileated woodpecker')];
+                    return [4 /*yield*/, downloadImage('/home/bisensee', url, 'Blue jay')];
                 case 3:
                     _a.sent();
-                    return [3 /*break*/, 5];
+                    return [4 /*yield*/, fetchAttribution('https://upload.wikimedia.org/wikipedia/commons/f/f4/Blue_jay_in_PP_%2830960%29.jpg')];
                 case 4:
+                    _a.sent();
+                    return [3 /*break*/, 6];
+                case 5:
                     err_1 = _a.sent();
                     console.error(err_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });

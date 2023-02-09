@@ -12,6 +12,18 @@ import * as https from 'https';
 
 const USER_AGENT = 'BirdScript/0.1 (daniel.schulz1590@protonmail.com)';
 
+const CLIENT_OPTIONS = {
+    headers: {
+        'User-Agent': USER_AGENT,
+    }
+};
+
+interface attribution {
+    artist: string,
+    credit: string,
+    license: string,
+}
+
 // Wikimedia API requires a descriptive user agent with contact information.
 // User-Agent
 // Example: MyCoolTool/1.1 (https://example.org/MyCoolTool/; MyCoolTool@example.org) UsedBaseLibrary/1.4'
@@ -45,7 +57,7 @@ async function fetchImageUrl(pageTitle: string): Promise<string> {
     const client = new rm.RestClient(USER_AGENT);
     const url = `http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${pageTitle}`;
 
-    const response = await client.get<any>(url);
+    const response = await client.get<string>(url);
 
     if (response.statusCode !== 200) {
         return Promise.reject(`Unexpected status code received for url ${url} : ${response.statusCode}`);
@@ -75,24 +87,24 @@ async function fetchImageUrl(pageTitle: string): Promise<string> {
     return source;
 }
 
-async function fetchAttribution(imageUrl: string): Promise<string> {
+async function fetchAttribution(imageUrl: string): Promise<attribution> {
     if (!imageUrl) {
         return Promise.reject('Image URL to fetch attribution for must not be empty');
     }
 
     const start = imageUrl.lastIndexOf('/');
-    if (start < 0) {
+    if (start < 0 || (start + 1 >= imageUrl.length - 1)) {
         return Promise.reject(`Could not find file name in URL ${imageUrl}`);
     }
 
-    const fileName = imageUrl.substring(start);
-    if (start < 0) {
+    const fileName = imageUrl.substring(start + 1);
+    if (!fileName) {
         return Promise.reject(`Could not find file name in URL ${imageUrl}`);
     }
+    console.log(`Fetching attribution for ${fileName}`);
 
-    const client = new rm.RestClient(USER_AGENT);
     const url = `https://en.wikipedia.org/w/api.php?action=query&prop=imageinfo&iiprop=extmetadata&titles=File%3a${fileName}&format=json`;
-
+    const client = new rm.RestClient(USER_AGENT);
     const response = await client.get<any>(url);
 
     if (response.statusCode !== 200) {
@@ -104,9 +116,22 @@ async function fetchAttribution(imageUrl: string): Promise<string> {
     }
 
     let artist = "";
+    let credit = "";
+    let license = "";
     const fieldFn = function (key: string, value: any): boolean {
         if (key === 'Artist') {
-            artist = value.value;
+            const regex = /<a.*>(.*)<\/a>/g;
+            const result = regex.exec(value.value as string)
+            artist = result ? result[1] : "";
+        } else if (key === 'Credit') {
+            const regex = /<span.*>(.*)<\/span>/g;
+            const result = regex.exec(value.value as string)
+            credit = result ? result[1] : "";
+        } else if (key === 'LicenseShortName') {
+            license = value.value as string;
+        }
+
+        if (artist && credit && license) {
             return true;
         }
 
@@ -116,11 +141,18 @@ async function fetchAttribution(imageUrl: string): Promise<string> {
     traverse(response.result, fieldFn);
 
     if (artist.length <= 0) {
-        return Promise.reject(`Could not find Artist in response: field is either not present or value is empty`);
+        return Promise.reject(`Could not find artist: field is either not present or value is empty`);
     }
-    console.log(`Found artist ${artist}`);
+    if (credit.length <= 0) {
+        return Promise.reject(`Could not find credit: field is either not present or value is empty`);
+    }
+    if (license.length <= 0) {
+        return Promise.reject(`Could not find license: field is either not present or value is empty`);
+    }
 
-    return artist;
+    console.log(`Found attribution ${artist} / ${credit} / ${license}`);
+
+    return { artist: artist, credit: credit, license: license };
 }
 
 async function downloadImage(targetDir: string, url: string, title: string): Promise<void> {
@@ -134,14 +166,9 @@ async function downloadImage(targetDir: string, url: string, title: string): Pro
     const fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase();
     const filePath = `${targetDir}/${fileName}.jpg`;
     const file = fs.createWriteStream(filePath);
-    const options = {
-        headers: {
-            'User-Agent': USER_AGENT,
-        }
-    };
 
     return new Promise<void>((resolve, reject) => {
-        https.get(url, options, function (response) {
+        https.get(url, CLIENT_OPTIONS, function (response) {
             if (response.statusCode !== 200) {
                 reject(`Unexpected status code received for url ${url} : ${response.statusCode}`);
                 file.close();
@@ -205,10 +232,10 @@ async function fetchPageTitle(term: string): Promise<string> {
 
 async function main() {
     try {
-        const title = await fetchPageTitle('Pileated woodpecker');
+        const title = await fetchPageTitle('Blue jay');
         const url = await fetchImageUrl(title);
-        await downloadImage('/home/bisensee', url, 'Pileated woodpecker');
-        //const artist = await fetchAttribution(url);
+        await downloadImage('/home/bisensee', url, 'Blue jay');
+        await fetchAttribution('https://upload.wikimedia.org/wikipedia/commons/f/f4/Blue_jay_in_PP_%2830960%29.jpg');
     } catch (err) {
         console.error(err);
     }
