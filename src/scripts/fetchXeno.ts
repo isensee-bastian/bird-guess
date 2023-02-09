@@ -13,18 +13,19 @@ import * as https from 'https';
 
 // Fields which we do not need right now have been omitted.
 interface RawResponse {
-    recordings: RawRecording[],
+    recordings: RawRecording[];
 }
 
 // Fields which we do not need right now have been omitted.
 interface RawRecording {
-    en: string,
-    type: string,
-    url: string,
-    file: string,
-    lic: string,
-    q: string,
-    length: string,
+    en: string;
+    type: string;
+    url: string;
+    file: string;
+    lic: string;
+    q: string;
+    length: string;
+    rec: string;
 }
 
 // Represents prepared recording meta data for further processing.
@@ -36,6 +37,7 @@ class Recording {
     licenseUrl: string;
     quality: string;
     length: string;
+    recordist: string;
 
     constructor(recording: RawRecording) {
         // For some reason the provided URL and licencse URL start with // and
@@ -47,6 +49,7 @@ class Recording {
         this.licenseUrl = `https:${recording.lic}`;
         this.quality = recording.q;
         this.length = recording.length;
+        this.recordist = recording.rec;
     }
 }
 
@@ -77,16 +80,16 @@ async function fetchRecordingMeta(name: string): Promise<Recording> {
     return recording;
 }
 
-async function downloadRecording(targetDir: string, recording: Recording): Promise<void> {
+async function downloadRecording(targetDir: string, recording: Recording): Promise<string> {
     if (!recording.name || recording.name.trim().length < 2) {
         return Promise.reject('Bird name to use in file name must have at least two characters');
     }
 
-    const fileName = recording.name.trim().replace(/(\s+)/g, '_').toLowerCase();
-    const filePath = `${targetDir}/${fileName}.mp3`;
+    const fileName = recording.name.trim().replace(/(\s+)/g, '_').toLowerCase() + '.mp3';
+    const filePath = `${targetDir}/${fileName}`;
     const file = fs.createWriteStream(filePath);
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
         https.get(recording.fileUrl, function (response) {
             if (response.statusCode !== 200) {
                 reject(`Unexpected status code received for url ${recording.fileUrl} : ${response.statusCode}`);
@@ -99,20 +102,27 @@ async function downloadRecording(targetDir: string, recording: Recording): Promi
             file.on('finish', () => {
                 file.close();
                 console.log(`Downloaded ${filePath}`);
-                resolve();
+                resolve(fileName);
+                return;
             });
         });
     });
 }
 
-async function main() {
-    const targetDir = '/home/bisensee';
-    try {
-        const recording = await fetchRecordingMeta('Pileated Woodpecker');
-        await downloadRecording(targetDir, recording);
-    } catch (err) {
-        console.error(err);
-    }
+export interface SoundResult {
+    fileName: string,
+    fileUrl: string;
+    length: string;
+    recordist: string;
+    url: string;
+    licenseUrl: string;
 }
 
-main();
+async function fetchSoundData(searchTerm: string, targetDir: string): Promise<SoundResult> {
+    const recording = await fetchRecordingMeta(searchTerm);
+    const fileName = await downloadRecording(targetDir, recording);
+
+    return { fileName: fileName, fileUrl: recording.fileUrl, length: recording.length, recordist: recording.recordist, url: recording.url, licenseUrl: recording.licenseUrl };
+}
+
+export default fetchSoundData;

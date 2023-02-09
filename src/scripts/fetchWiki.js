@@ -186,8 +186,8 @@ function downloadImage(targetDir, url, title) {
             if (!url) {
                 return [2 /*return*/, Promise.reject('URL to fetch image from must not be empty')];
             }
-            fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase();
-            filePath = "".concat(targetDir, "/").concat(fileName, ".jpg");
+            fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase() + '.jpg';
+            filePath = "".concat(targetDir, "/").concat(fileName);
             file = fs.createWriteStream(filePath);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     https.get(url, CLIENT_OPTIONS, function (response) {
@@ -200,7 +200,7 @@ function downloadImage(targetDir, url, title) {
                         file.on('finish', function () {
                             file.close();
                             console.log("Downloaded ".concat(filePath));
-                            resolve();
+                            resolve(fileName);
                         });
                     });
                 })];
@@ -251,33 +251,26 @@ function fetchPageTitle(term) {
         });
     });
 }
-function main() {
+function fetchImageData(searchTerm, targetDir) {
     return __awaiter(this, void 0, void 0, function () {
-        var title, url, err_1;
+        var title, url, fileName, attribution;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    _a.trys.push([0, 5, , 6]);
-                    return [4 /*yield*/, fetchPageTitle('Blue jay')];
+                case 0: return [4 /*yield*/, fetchPageTitle(searchTerm)];
                 case 1:
                     title = _a.sent();
                     return [4 /*yield*/, fetchImageUrl(title)];
                 case 2:
                     url = _a.sent();
-                    return [4 /*yield*/, downloadImage('/home/bisensee', url, 'Blue jay')];
+                    return [4 /*yield*/, downloadImage(targetDir, url, searchTerm)];
                 case 3:
-                    _a.sent();
-                    return [4 /*yield*/, fetchAttribution('https://upload.wikimedia.org/wikipedia/commons/f/f4/Blue_jay_in_PP_%2830960%29.jpg')];
+                    fileName = _a.sent();
+                    return [4 /*yield*/, fetchAttribution(url)];
                 case 4:
-                    _a.sent();
-                    return [3 /*break*/, 6];
-                case 5:
-                    err_1 = _a.sent();
-                    console.error(err_1);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    attribution = _a.sent();
+                    return [2 /*return*/, { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, credit: attribution.credit, license: attribution.license }];
             }
         });
     });
 }
-main();
+exports["default"] = fetchImageData;

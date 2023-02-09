@@ -51,6 +51,7 @@ var Recording = /** @class */ (function () {
         this.licenseUrl = "https:".concat(recording.lic);
         this.quality = recording.q;
         this.length = recording.length;
+        this.recordist = recording.rec;
     }
     return Recording;
 }());
@@ -87,52 +88,45 @@ function downloadRecording(targetDir, recording) {
     return __awaiter(this, void 0, void 0, function () {
         var fileName, filePath, file;
         return __generator(this, function (_a) {
-            if (recording.name.trim().length < 2) {
+            if (!recording.name || recording.name.trim().length < 2) {
                 return [2 /*return*/, Promise.reject('Bird name to use in file name must have at least two characters')];
             }
-            fileName = recording.name.trim().replace(/(\s+)/g, '_').toLowerCase();
-            filePath = "".concat(targetDir, "/").concat(fileName, ".mp3");
+            fileName = recording.name.trim().replace(/(\s+)/g, '_').toLowerCase() + '.mp3';
+            filePath = "".concat(targetDir, "/").concat(fileName);
             file = fs.createWriteStream(filePath);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     https.get(recording.fileUrl, function (response) {
                         if (response.statusCode !== 200) {
                             reject("Unexpected status code received for url ".concat(recording.fileUrl, " : ").concat(response.statusCode));
+                            file.close();
+                            return;
                         }
                         response.pipe(file);
                         file.on('finish', function () {
                             file.close();
                             console.log("Downloaded ".concat(filePath));
-                            resolve();
+                            resolve(fileName);
+                            return;
                         });
                     });
                 })];
         });
     });
 }
-function main() {
+function fetchSoundData(searchTerm, targetDir) {
     return __awaiter(this, void 0, void 0, function () {
-        var targetDir, recording, err_1;
+        var recording, fileName;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    targetDir = '/home/bisensee';
-                    _a.label = 1;
+                case 0: return [4 /*yield*/, fetchRecordingMeta(searchTerm)];
                 case 1:
-                    _a.trys.push([1, 4, , 5]);
-                    return [4 /*yield*/, fetchRecordingMeta('Pileated Woodpecker')];
-                case 2:
                     recording = _a.sent();
                     return [4 /*yield*/, downloadRecording(targetDir, recording)];
-                case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
-                    err_1 = _a.sent();
-                    console.error(err_1);
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
+                case 2:
+                    fileName = _a.sent();
+                    return [2 /*return*/, { fileName: fileName, fileUrl: recording.fileUrl, length: recording.length, recordist: recording.recordist, url: recording.url, licenseUrl: recording.licenseUrl }];
             }
         });
     });
 }
-main();
+exports["default"] = fetchSoundData;

@@ -19,9 +19,9 @@ const CLIENT_OPTIONS = {
 };
 
 interface attribution {
-    artist: string,
-    credit: string,
-    license: string,
+    artist: string;
+    credit: string;
+    license: string;
 }
 
 // Wikimedia API requires a descriptive user agent with contact information.
@@ -155,7 +155,7 @@ async function fetchAttribution(imageUrl: string): Promise<attribution> {
     return { artist: artist, credit: credit, license: license };
 }
 
-async function downloadImage(targetDir: string, url: string, title: string): Promise<void> {
+async function downloadImage(targetDir: string, url: string, title: string): Promise<string> {
     if (!title || title.trim().length < 2) {
         return Promise.reject('Title to use in file name must have at least two characters');
     }
@@ -163,11 +163,11 @@ async function downloadImage(targetDir: string, url: string, title: string): Pro
         return Promise.reject('URL to fetch image from must not be empty');
     }
 
-    const fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase();
-    const filePath = `${targetDir}/${fileName}.jpg`;
+    const fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase() + '.jpg';
+    const filePath = `${targetDir}/${fileName}`;
     const file = fs.createWriteStream(filePath);
 
-    return new Promise<void>((resolve, reject) => {
+    return new Promise<string>((resolve, reject) => {
         https.get(url, CLIENT_OPTIONS, function (response) {
             if (response.statusCode !== 200) {
                 reject(`Unexpected status code received for url ${url} : ${response.statusCode}`);
@@ -180,7 +180,7 @@ async function downloadImage(targetDir: string, url: string, title: string): Pro
             file.on('finish', () => {
                 file.close();
                 console.log(`Downloaded ${filePath}`);
-                resolve();
+                resolve(fileName);
             });
         });
     });
@@ -230,15 +230,22 @@ async function fetchPageTitle(term: string): Promise<string> {
     return title;
 }
 
-async function main() {
-    try {
-        const title = await fetchPageTitle('Blue jay');
-        const url = await fetchImageUrl(title);
-        await downloadImage('/home/bisensee', url, 'Blue jay');
-        await fetchAttribution('https://upload.wikimedia.org/wikipedia/commons/f/f4/Blue_jay_in_PP_%2830960%29.jpg');
-    } catch (err) {
-        console.error(err);
-    }
+export interface ImageResult {
+    fileName: string,
+    fileUrl: string,
+    article: string,
+    artist: string;
+    credit: string;
+    license: string;
 }
 
-main();
+async function fetchImageData(searchTerm: string, targetDir: string): Promise<ImageResult> {
+    const title = await fetchPageTitle(searchTerm);
+    const url = await fetchImageUrl(title);
+    const fileName = await downloadImage(targetDir, url, searchTerm);
+    const attribution = await fetchAttribution(url);
+
+    return { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, credit: attribution.credit, license: attribution.license };
+}
+
+export default fetchImageData;
