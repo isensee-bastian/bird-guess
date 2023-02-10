@@ -1,5 +1,6 @@
 import * as rm from 'typed-rest-client/RestClient';
 import * as fs from 'fs';
+import * as path from 'path';
 import * as https from 'https';
 
 //
@@ -164,7 +165,7 @@ async function downloadImage(targetDir: string, url: string, title: string): Pro
     }
 
     const fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase() + '.jpg';
-    const filePath = `${targetDir}/${fileName}`;
+    const filePath = path.join(targetDir, fileName);
     const file = fs.createWriteStream(filePath);
 
     return new Promise<string>((resolve, reject) => {

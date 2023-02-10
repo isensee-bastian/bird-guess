@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var rm = require("typed-rest-client/RestClient");
 var fs = require("fs");
+var path = require("path");
 var https = require("https");
 // Represents prepared recording meta data for further processing.
 var Recording = /** @class */ (function () {
@@ -92,7 +93,7 @@ function downloadRecording(targetDir, recording) {
                 return [2 /*return*/, Promise.reject('Bird name to use in file name must have at least two characters')];
             }
             fileName = recording.name.trim().replace(/(\s+)/g, '_').toLowerCase() + '.mp3';
-            filePath = "".concat(targetDir, "/").concat(fileName);
+            filePath = path.join(targetDir, fileName);
             file = fs.createWriteStream(filePath);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     https.get(recording.fileUrl, function (response) {

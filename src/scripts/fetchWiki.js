@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var rm = require("typed-rest-client/RestClient");
 var fs = require("fs");
+var path = require("path");
 var https = require("https");
 //
 // This script automates fetching of bird images from wikipedia.
@@ -187,7 +188,7 @@ function downloadImage(targetDir, url, title) {
                 return [2 /*return*/, Promise.reject('URL to fetch image from must not be empty')];
             }
             fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase() + '.jpg';
-            filePath = "".concat(targetDir, "/").concat(fileName);
+            filePath = path.join(targetDir, fileName);
             file = fs.createWriteStream(filePath);
             return [2 /*return*/, new Promise(function (resolve, reject) {
                     https.get(url, CLIENT_OPTIONS, function (response) {

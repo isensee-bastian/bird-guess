@@ -12,7 +12,7 @@ interface BirdPair {
   correctIndex: number,
 }
 
-const filePrefix = 'assets/birds/'
+const FILE_DIR = 'assets/birds/'
 
 // TODO: Attribute authors and license of images and sounds.
 // TODO: Consider measuring time in additon to points (consider start and stop buttons).
@@ -36,7 +36,7 @@ const Tab1: React.FC = () => {
   const [pair, setPair] = useState(nextRandomPair());
 
   const playSound = () => {
-    const sound = new Audio(`${filePrefix}${allBirds[pair.correctIndex].soundFile}`);
+    const sound = new Audio(`${FILE_DIR}${allBirds[pair.correctIndex].sound.fileName}`);
     sound.play();
   };
 
@@ -75,8 +75,8 @@ const Tab1: React.FC = () => {
         </IonHeader>
 
         <BirdGrid
-          leftImgFile={`${filePrefix}${allBirds[pair.firstIndex].imgFile}`}
-          rightImgFile={`${filePrefix}${allBirds[pair.secondIndex].imgFile}`}
+          leftImgFile={`${FILE_DIR}${allBirds[pair.firstIndex].image.fileName}`}
+          rightImgFile={`${FILE_DIR}${allBirds[pair.secondIndex].image.fileName}`}
           leftName={allBirds[pair.firstIndex].name}
           rightName={allBirds[pair.secondIndex].name}
           score={score}
