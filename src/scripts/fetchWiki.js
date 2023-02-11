@@ -203,6 +203,10 @@ function downloadImage(targetDir, url, title) {
                             console.log("Downloaded ".concat(filePath));
                             resolve(fileName);
                         });
+                    }).on('error', function (err) {
+                        fs.unlinkSync(filePath);
+                        file.close();
+                        reject("Error on donwloading image from url ".concat(url, ": ").concat(err));
                     });
                 })];
         });
@@ -254,7 +258,7 @@ function fetchPageTitle(term) {
 }
 function fetchImageData(searchTerm, targetDir) {
     return __awaiter(this, void 0, void 0, function () {
-        var title, url, fileName, attribution;
+        var title, url, attribution, fileName;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, fetchPageTitle(searchTerm)];
@@ -263,12 +267,12 @@ function fetchImageData(searchTerm, targetDir) {
                     return [4 /*yield*/, fetchImageUrl(title)];
                 case 2:
                     url = _a.sent();
-                    return [4 /*yield*/, downloadImage(targetDir, url, searchTerm)];
-                case 3:
-                    fileName = _a.sent();
                     return [4 /*yield*/, fetchAttribution(url)];
-                case 4:
+                case 3:
                     attribution = _a.sent();
+                    return [4 /*yield*/, downloadImage(targetDir, url, searchTerm)];
+                case 4:
+                    fileName = _a.sent();
                     return [2 /*return*/, { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, credit: attribution.credit, license: attribution.license }];
             }
         });

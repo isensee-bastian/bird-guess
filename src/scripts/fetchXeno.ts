@@ -106,12 +106,16 @@ async function downloadRecording(targetDir: string, recording: Recording): Promi
                 resolve(fileName);
                 return;
             });
+        }).on('error', function (err) {
+            fs.unlinkSync(filePath);
+            file.close();
+            reject(`Error on donwloading recording from url ${recording.fileUrl}: ${err}`);
         });
     });
 }
 
 export interface SoundResult {
-    fileName: string,
+    fileName: string;
     fileUrl: string;
     length: string;
     recordist: string;

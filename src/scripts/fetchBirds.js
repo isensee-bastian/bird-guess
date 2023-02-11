@@ -40,16 +40,54 @@ var fetchWiki_1 = require("./fetchWiki");
 var fetchXeno_1 = require("./fetchXeno");
 var fs = require("fs");
 var path = require("path");
-var TARGET_DIR = '/home/bisensee/repos/birds/download_test';
-var birds = ['Blue jay', 'Black-browned albatross', 'Northern cardinal', 'Peregrine falcon', 'Pileated woodpecker', 'Short-eared owl'];
-function main() {
+//
+// Ideas for future improvement:
+// * Consider using a large bird list as input: https://en.wikipedia.org/wiki/List_of_birds_by_common_name
+// * Consider using a random mechanism of a page like xeno canto for input.
+// * Improve cleanup mechanism for errors (file name needs to be returned for cleanup, even if e.g. attribution is not found).
+//
+var TARGET_DIR = '/home/bisensee/repos/birds/public/assets/birds';
+var birds = [
+    'Blue jay',
+    'Black-browned albatross',
+    'Northern cardinal',
+    'Peregrine falcon',
+    'Pileated woodpecker',
+    'Short-eared owl',
+    'Acorn woodpecker',
+    'American black duck',
+    'American coot',
+    'American goldfinch',
+    // 'American woodcock',
+    // 'Annas hummingbird',
+    // 'Atlantic puffin',
+    // 'Bald eagle',
+    // 'Barred owl',
+    // 'Barn owl',
+    // 'Black oystercatcher',
+    // 'Brant',
+    // 'California scrub jay',
+    // 'Common ground dove',
+    // 'Common raven',
+    // 'Dickcissel',
+    // 'Dunlin',
+    // 'Elegant tern',
+    // 'Glossy ibis',
+    // 'Great black-backed gull',
+    // 'Great egret',
+    // 'Greater scaup',
+    // 'King rail',
+    // 'Lucifer hummingbird',
+    // 'Monk parakeet',
+    // 'Painted bunting'
+];
+function fetch() {
     return __awaiter(this, void 0, void 0, function () {
-        var entries, failed, _a, _b, _c, _i, index, bird, image, sound, exception_1, imagePath, soundPath, indexFile;
+        var loaded, failed, _a, _b, _c, _i, index, bird, image, sound, exception_1;
         return __generator(this, function (_d) {
             switch (_d.label) {
                 case 0:
-                    console.log("Starting bird fetching");
-                    entries = [];
+                    loaded = [];
                     failed = [];
                     _a = birds;
                     _b = [];
@@ -74,36 +112,53 @@ function main() {
                     return [4 /*yield*/, (0, fetchXeno_1["default"])(bird, TARGET_DIR)];
                 case 4:
                     sound = _d.sent();
-                    entries.push({ name: bird, image: image, sound: sound });
+                    loaded.push({ name: bird, image: image, sound: sound });
                     return [3 /*break*/, 6];
                 case 5:
                     exception_1 = _d.sent();
                     console.error("Fetching failed for ".concat(bird, ": ").concat(exception_1));
                     failed.push({ name: bird, error: "".concat(exception_1) });
                     // Cleanup possibly downloaded files to avoid inconsistencies.
-                    if (image && image.fileName) {
-                        imagePath = path.join(TARGET_DIR, image.fileName);
-                        console.log("Removing ".concat(imagePath, " due to fetch error"));
-                        fs.unlinkSync(imagePath);
-                    }
-                    if (sound && sound.fileName) {
-                        soundPath = path.join(TARGET_DIR, sound.fileName);
-                        console.log("Removing ".concat(soundPath, " due to fetch error"));
-                        fs.unlinkSync(soundPath);
-                    }
+                    cleanupFailedDownload(image, sound);
                     return [3 /*break*/, 6];
                 case 6:
                     _i++;
                     return [3 /*break*/, 1];
-                case 7:
+                case 7: return [2 /*return*/, { loaded: loaded, failed: failed }];
+            }
+        });
+    });
+}
+function cleanupFailedDownload(image, sound) {
+    if (image && image.fileName) {
+        var imagePath = path.join(TARGET_DIR, image.fileName);
+        console.log("Removing ".concat(imagePath, " due to fetch error"));
+        fs.unlinkSync(imagePath);
+    }
+    if (sound && sound.fileName) {
+        var soundPath = path.join(TARGET_DIR, sound.fileName);
+        console.log("Removing ".concat(soundPath, " due to fetch error"));
+        fs.unlinkSync(soundPath);
+    }
+}
+function main() {
+    return __awaiter(this, void 0, void 0, function () {
+        var result, indexFile;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    console.log("Starting bird fetching");
+                    return [4 /*yield*/, fetch()];
+                case 1:
+                    result = _a.sent();
                     console.log("");
                     console.log("Fetching done");
                     console.log("Failed downloads:");
-                    console.log(failed);
+                    console.log(result.failed);
                     console.log("");
                     console.log("Writing index file");
                     indexFile = path.join(TARGET_DIR, 'birds.json');
-                    fs.writeFileSync(indexFile, JSON.stringify(entries, null, 4), 'utf-8');
+                    fs.writeFileSync(indexFile, JSON.stringify(result.loaded, null, 4), 'utf-8');
                     console.log("Finished bird fetching");
                     return [2 /*return*/];
             }

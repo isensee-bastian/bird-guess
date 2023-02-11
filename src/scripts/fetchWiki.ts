@@ -183,6 +183,10 @@ async function downloadImage(targetDir: string, url: string, title: string): Pro
                 console.log(`Downloaded ${filePath}`);
                 resolve(fileName);
             });
+        }).on('error', function (err) {
+            fs.unlinkSync(filePath);
+            file.close();
+            reject(`Error on donwloading image from url ${url}: ${err}`);
         });
     });
 }
@@ -232,9 +236,9 @@ async function fetchPageTitle(term: string): Promise<string> {
 }
 
 export interface ImageResult {
-    fileName: string,
-    fileUrl: string,
-    article: string,
+    fileName: string;
+    fileUrl: string;
+    article: string;
     artist: string;
     credit: string;
     license: string;
@@ -243,8 +247,9 @@ export interface ImageResult {
 async function fetchImageData(searchTerm: string, targetDir: string): Promise<ImageResult> {
     const title = await fetchPageTitle(searchTerm);
     const url = await fetchImageUrl(title);
-    const fileName = await downloadImage(targetDir, url, searchTerm);
     const attribution = await fetchAttribution(url);
+    // Perform download as a last step to avoid leaving files when other steps failed (e.g. attribution not found).
+    const fileName = await downloadImage(targetDir, url, searchTerm);
 
     return { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, credit: attribution.credit, license: attribution.license };
 }

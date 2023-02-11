@@ -109,6 +109,10 @@ function downloadRecording(targetDir, recording) {
                             resolve(fileName);
                             return;
                         });
+                    }).on('error', function (err) {
+                        fs.unlinkSync(filePath);
+                        file.close();
+                        reject("Error on donwloading recording from url ".concat(recording.fileUrl, ": ").concat(err));
                     });
                 })];
         });
