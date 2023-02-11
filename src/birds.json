@@ -1,0 +1,488 @@
+[
+    {
+        "name": "Blue jay",
+        "image": {
+            "fileName": "blue_jay.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Blue_jay_in_PP_%2830960%29.jpg",
+            "article": "Blue jay",
+            "artist": "Rhododendrites",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "blue_jay.mp3",
+            "fileUrl": "https://xeno-canto.org/555073/download",
+            "length": "0:22",
+            "recordist": "Lori Zabel",
+            "url": "https://xeno-canto.org/555073",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Northern cardinal",
+        "image": {
+            "fileName": "northern_cardinal.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Male_northern_cardinal_in_Central_Park_%2852612%29.jpg",
+            "article": "Northern cardinal",
+            "artist": "Rhododendrites",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "northern_cardinal.mp3",
+            "fileUrl": "https://xeno-canto.org/742012/download",
+            "length": "0:18",
+            "recordist": "OctavioOutdoors",
+            "url": "https://xeno-canto.org/742012",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Peregrine falcon",
+        "image": {
+            "fileName": "peregrine_falcon.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Falco_peregrinus_m_Humber_Bay_Park_Toronto.jpg",
+            "article": "Peregrine falcon",
+            "artist": "Mykola Swarnyk",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "peregrine_falcon.mp3",
+            "fileUrl": "https://xeno-canto.org/777841/download",
+            "length": "0:16",
+            "recordist": "Vladimír Nemček",
+            "url": "https://xeno-canto.org/777841",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Pileated woodpecker",
+        "image": {
+            "fileName": "pileated_woodpecker.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/PileatedWoodpeckerFeedingonTree%2C_crop.jpg",
+            "article": "Pileated woodpecker",
+            "artist": "Joshlaymon",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "pileated_woodpecker.mp3",
+            "fileUrl": "https://xeno-canto.org/714469/download",
+            "length": "0:20",
+            "recordist": "Bruce Lagerquist",
+            "url": "https://xeno-canto.org/714469",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Short-eared owl",
+        "image": {
+            "fileName": "short-eared_owl.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Short_Eared_Owl_on_the_Ground.jpg",
+            "article": "Short-eared owl",
+            "artist": "Sumeet Moghe",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "short-eared_owl.mp3",
+            "fileUrl": "https://xeno-canto.org/771770/download",
+            "length": "0:20",
+            "recordist": "Marcin Sołowiej",
+            "url": "https://xeno-canto.org/771770",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Acorn woodpecker",
+        "image": {
+            "fileName": "acorn_woodpecker.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Acorn_woodpecker_holding_a_nut_in_its_beak-0225.jpg",
+            "article": "Acorn woodpecker",
+            "artist": "Frank Schulenburg",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "acorn_woodpecker.mp3",
+            "fileUrl": "https://xeno-canto.org/742321/download",
+            "length": "0:16",
+            "recordist": "Joost van Bruggen",
+            "url": "https://xeno-canto.org/742321",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+        }
+    },
+    {
+        "name": "American black duck",
+        "image": {
+            "fileName": "american_black_duck.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Blackduck.jpg",
+            "article": "American black duck",
+            "artist": "U.S. Fish and Wildlife Service",
+            "license": "Public domain"
+        },
+        "sound": {
+            "fileName": "american_black_duck.mp3",
+            "fileUrl": "https://xeno-canto.org/348844/download",
+            "length": "0:23",
+            "recordist": "Paul Driver",
+            "url": "https://xeno-canto.org/348844",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "American coot",
+        "image": {
+            "fileName": "american_coot.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d8/American_coot_in_Prospect_Park_%2806152%29.jpg",
+            "article": "American coot",
+            "artist": "Rhododendrites",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "american_coot.mp3",
+            "fileUrl": "https://xeno-canto.org/706571/download",
+            "length": "0:14",
+            "recordist": "Mauricio Cuéllar Ramírez",
+            "url": "https://xeno-canto.org/706571",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "American goldfinch",
+        "image": {
+            "fileName": "american_goldfinch.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Male_American_Goldfinch_in_Lodi_CA.JPG",
+            "article": "American goldfinch",
+            "artist": "Breck22",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "american_goldfinch.mp3",
+            "fileUrl": "https://xeno-canto.org/543351/download",
+            "length": "0:23",
+            "recordist": "Thomas Magarian",
+            "url": "https://xeno-canto.org/543351",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "American woodcock",
+        "image": {
+            "fileName": "american_woodcock.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/American_Woodcock_Scolopax_minor.jpg",
+            "article": "American woodcock",
+            "artist": "guizmo_68",
+            "license": "CC BY 2.0"
+        },
+        "sound": {
+            "fileName": "american_woodcock.mp3",
+            "fileUrl": "https://xeno-canto.org/531565/download",
+            "length": "0:24",
+            "recordist": "William Whitehead",
+            "url": "https://xeno-canto.org/531565",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Atlantic puffin",
+        "image": {
+            "fileName": "atlantic_puffin.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Puffin_%28Fratercula_arctica%29.jpg",
+            "article": "Atlantic puffin",
+            "artist": "Charles J. Sharp",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "atlantic_puffin.mp3",
+            "fileUrl": "https://xeno-canto.org/667974/download",
+            "length": "0:24",
+            "recordist": "Irish Wildlife Sounds",
+            "url": "https://xeno-canto.org/667974",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Bald eagle",
+        "image": {
+            "fileName": "bald_eagle.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg",
+            "article": "Bald eagle",
+            "artist": "Andy Morffew",
+            "license": "CC BY 2.0"
+        },
+        "sound": {
+            "fileName": "bald_eagle.mp3",
+            "fileUrl": "https://xeno-canto.org/769877/download",
+            "length": "0:10",
+            "recordist": "Russ Wigh",
+            "url": "https://xeno-canto.org/769877",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Barred owl",
+        "image": {
+            "fileName": "barred_owl.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Strix-varia-005.jpg",
+            "article": "Barred owl",
+            "artist": "Mdf",
+            "license": "CC-BY-SA-3.0"
+        },
+        "sound": {
+            "fileName": "barred_owlet-nightjar.mp3",
+            "fileUrl": "https://xeno-canto.org/582462/download",
+            "length": "0:10",
+            "recordist": "Ken Behrens",
+            "url": "https://xeno-canto.org/582462",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/3.0/"
+        }
+    },
+    {
+        "name": "Barn owl",
+        "image": {
+            "fileName": "barn_owl.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ab/%27Tutoke%27_-_geograph.org.uk_-_2532332.jpg",
+            "article": "Barn owl",
+            "artist": "Peter Trimming",
+            "license": "CC BY-SA 2.0"
+        },
+        "sound": {
+            "fileName": "western_barn_owl.mp3",
+            "fileUrl": "https://xeno-canto.org/771408/download",
+            "length": "0:17",
+            "recordist": "Dominique Guillerme",
+            "url": "https://xeno-canto.org/771408",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Black oystercatcher",
+        "image": {
+            "fileName": "black_oystercatcher.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/7/72/Black_Oystercatcher_HMB_RWD4.jpg",
+            "article": "Black oystercatcher",
+            "artist": "DickDaniels",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "black_oystercatcher.mp3",
+            "fileUrl": "https://xeno-canto.org/442061/download",
+            "length": "0:16",
+            "recordist": "Lance A. M. Benner",
+            "url": "https://xeno-canto.org/442061",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "California scrub jay",
+        "image": {
+            "fileName": "california_scrub_jay.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/5/52/Aphelocoma_californica_in_Seattle_cropped.jpg",
+            "article": "California scrub jay",
+            "artist": "Aphelocoma_californica_in_Seattle.jpg",
+            "license": "CC BY-SA 2.0"
+        },
+        "sound": {
+            "fileName": "california_scrub_jay.mp3",
+            "fileUrl": "https://xeno-canto.org/545782/download",
+            "length": "0:20",
+            "recordist": "Thomas Magarian",
+            "url": "https://xeno-canto.org/545782",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Common ground dove",
+        "image": {
+            "fileName": "common_ground_dove.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c1/CommonGroundDoveJG.jpg",
+            "article": "Common ground dove",
+            "artist": "MarshBunny",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "common_ground_dove.mp3",
+            "fileUrl": "https://xeno-canto.org/618378/download",
+            "length": "0:16",
+            "recordist": "Edison Ocaña",
+            "url": "https://xeno-canto.org/618378",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Dickcissel",
+        "image": {
+            "fileName": "dickcissel.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/2/26/DickcisselA.jpg",
+            "article": "Dickcissel",
+            "artist": "(The Rebel At)",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "dickcissel.mp3",
+            "fileUrl": "https://xeno-canto.org/777675/download",
+            "length": "0:19",
+            "recordist": "Sue Riffe",
+            "url": "https://xeno-canto.org/777675",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Dunlin",
+        "image": {
+            "fileName": "dunlin.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/DunlinEastPoint.png",
+            "article": "Dunlin",
+            "artist": "Charles Homler d/b/a FocusOnWildlife",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "dunlin.mp3",
+            "fileUrl": "https://xeno-canto.org/777541/download",
+            "length": "0:10",
+            "recordist": "Paul Kelly",
+            "url": "https://xeno-canto.org/777541",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Elegant tern",
+        "image": {
+            "fileName": "elegant_tern.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Elegant_Tern_Bolsa_Chica.jpg",
+            "article": "Elegant tern",
+            "artist": "Regular Daddy",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "elegant_tern.mp3",
+            "fileUrl": "https://xeno-canto.org/332628/download",
+            "length": "0:24",
+            "recordist": "Aidan Place",
+            "url": "https://xeno-canto.org/332628",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Glossy ibis",
+        "image": {
+            "fileName": "glossy_ibis.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Glossy_Ibis_-_Fogg_Dam_Conservation_Reserve.jpg",
+            "article": "Glossy ibis",
+            "artist": "JJ Harrison",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "glossy_ibis.mp3",
+            "fileUrl": "https://xeno-canto.org/530553/download",
+            "length": "0:20",
+            "recordist": "Jordi Calvet",
+            "url": "https://xeno-canto.org/530553",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Great black-backed gull",
+        "image": {
+            "fileName": "great_black-backed_gull.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Great_Black-backed_Gull_Larus_marinus.jpg",
+            "article": "Great black-backed gull",
+            "artist": "Andreas Trepte",
+            "license": "CC BY-SA 2.5"
+        },
+        "sound": {
+            "fileName": "great_black-backed_gull.mp3",
+            "fileUrl": "https://xeno-canto.org/767180/download",
+            "length": "0:18",
+            "recordist": "Irish Wildlife Sounds",
+            "url": "https://xeno-canto.org/767180",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+        }
+    },
+    {
+        "name": "Great egret",
+        "image": {
+            "fileName": "great_egret.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Great_Egret_Breeding_Plumage.png",
+            "article": "Great egret",
+            "artist": "Chuck Homler (FocusOnWildlife.Me)",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "great_egret.mp3",
+            "fileUrl": "https://xeno-canto.org/776170/download",
+            "length": "0:14",
+            "recordist": "Irish Wildlife Sounds",
+            "url": "https://xeno-canto.org/776170",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+        }
+    },
+    {
+        "name": "Greater scaup",
+        "image": {
+            "fileName": "greater_scaup.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Greater-scaup-male2.jpg",
+            "article": "Greater scaup",
+            "artist": "Calibas",
+            "license": "CC BY-SA 4.0"
+        },
+        "sound": {
+            "fileName": "greater_scaup.mp3",
+            "fileUrl": "https://xeno-canto.org/322883/download",
+            "length": "0:10",
+            "recordist": "Peter Boesman",
+            "url": "https://xeno-canto.org/322883",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+        }
+    },
+    {
+        "name": "King rail",
+        "image": {
+            "fileName": "king_rail.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5f/KingRail23.jpg",
+            "article": "King rail",
+            "artist": "Jim Rathert/MO Conservation",
+            "license": "Public domain"
+        },
+        "sound": {
+            "fileName": "king_rail.mp3",
+            "fileUrl": "https://xeno-canto.org/383659/download",
+            "length": "0:21",
+            "recordist": "Eric Hough",
+            "url": "https://xeno-canto.org/383659",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Monk parakeet",
+        "image": {
+            "fileName": "monk_parakeet.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Monk_Parakeet_%28Myiopsitta_monachus%29_%2828420470712%29.jpg",
+            "article": "Monk parakeet",
+            "artist": "Bernard DUPONT",
+            "license": "CC BY-SA 2.0"
+        },
+        "sound": {
+            "fileName": "monk_parakeet.mp3",
+            "fileUrl": "https://xeno-canto.org/509193/download",
+            "length": "0:10",
+            "recordist": "Ted Floyd",
+            "url": "https://xeno-canto.org/509193",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
+        "name": "Painted bunting",
+        "image": {
+            "fileName": "painted_bunting.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/0/03/Passerina_ciris-20090208.jpg",
+            "article": "Painted bunting",
+            "artist": "Doug Janson",
+            "license": "CC BY-SA 3.0"
+        },
+        "sound": {
+            "fileName": "painted_bunting.mp3",
+            "fileUrl": "https://xeno-canto.org/217067/download",
+            "length": "0:15",
+            "recordist": "Terry Davis",
+            "url": "https://xeno-canto.org/217067",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    }
+]

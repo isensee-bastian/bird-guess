@@ -40,6 +40,7 @@ var rm = require("typed-rest-client/RestClient");
 var fs = require("fs");
 var path = require("path");
 var https = require("https");
+var jsdom = require("jsdom");
 //
 // This script automates fetching of bird images from wikipedia.
 //
@@ -112,7 +113,7 @@ function fetchImageUrl(pageTitle) {
 }
 function fetchAttribution(imageUrl) {
     return __awaiter(this, void 0, void 0, function () {
-        var start, fileName, url, client, response, artist, credit, license, fieldFn;
+        var start, fileName, url, client, response, artist, license, fieldFn;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -140,23 +141,18 @@ function fetchAttribution(imageUrl) {
                         return [2 /*return*/, Promise.reject("No result found for url ".concat(url))];
                     }
                     artist = "";
-                    credit = "";
                     license = "";
                     fieldFn = function (key, value) {
-                        if (key === 'Artist') {
-                            var regex = /<a.*>(.*)<\/a>/g;
-                            var result = regex.exec(value.value);
-                            artist = result ? result[1] : "";
+                        if (!value.value) {
+                            return false;
                         }
-                        else if (key === 'Credit') {
-                            var regex = /<span.*>(.*)<\/span>/g;
-                            var result = regex.exec(value.value);
-                            credit = result ? result[1] : "";
+                        if (key === 'Artist') {
+                            artist = parseArtist(value.value);
                         }
                         else if (key === 'LicenseShortName') {
                             license = value.value;
                         }
-                        if (artist && credit && license) {
+                        if (artist && license) {
                             return true;
                         }
                         return false;
@@ -165,17 +161,31 @@ function fetchAttribution(imageUrl) {
                     if (artist.length <= 0) {
                         return [2 /*return*/, Promise.reject("Could not find artist: field is either not present or value is empty")];
                     }
-                    if (credit.length <= 0) {
-                        return [2 /*return*/, Promise.reject("Could not find credit: field is either not present or value is empty")];
-                    }
                     if (license.length <= 0) {
                         return [2 /*return*/, Promise.reject("Could not find license: field is either not present or value is empty")];
                     }
-                    console.log("Found attribution ".concat(artist, " / ").concat(credit, " / ").concat(license));
-                    return [2 /*return*/, { artist: artist, credit: credit, license: license }];
+                    console.log("Found attribution ".concat(artist, " / ").concat(license));
+                    return [2 /*return*/, { artist: artist, license: license }];
             }
         });
     });
+}
+function parseArtist(text) {
+    // Unfortunately, the format of the artist value varies widely. It can be plain text or html with different nested elements.
+    if (text && text.startsWith('<')) {
+        // Parse value of innermost html element.
+        var dom = new jsdom.JSDOM(text);
+        var leaves = Array.from(dom.window.document.querySelectorAll('body *'))
+            .filter(function (e) { return !e.children.length; });
+        if (leaves.length) {
+            return leaves[0].innerHTML;
+        }
+    }
+    else {
+        // Assume this is plain text.
+        return text;
+    }
+    return "";
 }
 function downloadImage(targetDir, url, title) {
     return __awaiter(this, void 0, void 0, function () {
@@ -273,7 +283,7 @@ function fetchImageData(searchTerm, targetDir) {
                     return [4 /*yield*/, downloadImage(targetDir, url, searchTerm)];
                 case 4:
                     fileName = _a.sent();
-                    return [2 /*return*/, { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, credit: attribution.credit, license: attribution.license }];
+                    return [2 /*return*/, { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, license: attribution.license }];
             }
         });
     });

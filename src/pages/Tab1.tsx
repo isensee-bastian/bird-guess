@@ -2,7 +2,7 @@ import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle
 import './Tab1.css';
 import { musicalNote } from 'ionicons/icons';
 import BirdGrid from '../components/BirdGrid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import allBirds from '../birds.json';
 
 // The first one is the correct one. Second will always be different.
@@ -16,6 +16,11 @@ const FILE_DIR = 'assets/birds/'
 
 // TODO: Attribute authors and license of images and sounds.
 // TODO: Consider measuring time in additon to points (consider start and stop buttons).
+// TODO: Add a mechanism to prevent showing the same (correct) bird multiple times.
+// TODO: Add error handling for sound playing.
+// TODO: Check why page is loaded twice initially.
+// TODO: Fix bugs that occurr due to too many state updates.
+// TODO: Remove debug output.
 const Tab1: React.FC = () => {
 
   const nextRandomInt = (maxExclusive: number): number => {
@@ -29,15 +34,42 @@ const Tab1: React.FC = () => {
       second = nextRandomInt(allBirds.length);
     }
     const correct = nextRandomInt(2) === 0 ? first : second;
+    const trap = correct === first ? second : first;
+
+    console.log(`Correct is ${allBirds[correct].name}`);
+    console.log(`Trap is ${allBirds[trap].name}`);
 
     return { firstIndex: first, secondIndex: second, correctIndex: correct };
-  }
+  };
 
-  const [pair, setPair] = useState(nextRandomPair());
+  const createSound = (pair: BirdPair): HTMLAudioElement => {
+    console.log(`Create sound for ${allBirds[pair.correctIndex].name}`);
+    return new Audio(`${FILE_DIR}${allBirds[pair.correctIndex].sound.fileName}`);
+  };
+
+  const [pair, setPair] = useState(() => {
+    console.log(`useState(nextRandomPair())`);
+    return nextRandomPair()
+  });
+
+  const [sound, setSound] = useState(() => {
+    console.log(`useState(createSound())`);
+    return createSound(pair);
+  });
+
+  useEffect(() => {
+    console.log(`useEffect(setSound())`);
+    setSound(createSound(pair));
+  }, [pair]);
 
   const playSound = () => {
-    const sound = new Audio(`${FILE_DIR}${allBirds[pair.correctIndex].sound.fileName}`);
+    console.log(`Play sound`);
     sound.play();
+  };
+
+  const pauseSound = () => {
+    console.log(`Pause sound`);
+    sound.pause();
   };
 
   const [presentToast] = useIonToast();
@@ -57,6 +89,7 @@ const Tab1: React.FC = () => {
       setScore(score + 1);
     }
 
+    pauseSound();
     setPair(nextRandomPair());
   };
 

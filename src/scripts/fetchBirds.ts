@@ -5,10 +5,11 @@ import * as path from 'path';
 
 
 //
+// This script combines automated fetching of bird sound and images by name.
+//
 // Ideas for future improvement:
 // * Consider using a large bird list as input: https://en.wikipedia.org/wiki/List_of_birds_by_common_name
 // * Consider using a random mechanism of a page like xeno canto for input.
-// * Improve cleanup mechanism for errors (file name needs to be returned for cleanup, even if e.g. attribution is not found).
 //
 
 const TARGET_DIR = '/home/bisensee/repos/birds/public/assets/birds';
@@ -40,28 +41,28 @@ const birds = [
     'American black duck',
     'American coot',
     'American goldfinch',
-    // 'American woodcock',
-    // 'Annas hummingbird',
-    // 'Atlantic puffin',
-    // 'Bald eagle',
-    // 'Barred owl',
-    // 'Barn owl',
-    // 'Black oystercatcher',
-    // 'Brant',
-    // 'California scrub jay',
-    // 'Common ground dove',
-    // 'Common raven',
-    // 'Dickcissel',
-    // 'Dunlin',
-    // 'Elegant tern',
-    // 'Glossy ibis',
-    // 'Great black-backed gull',
-    // 'Great egret',
-    // 'Greater scaup',
-    // 'King rail',
-    // 'Lucifer hummingbird',
-    // 'Monk parakeet',
-    // 'Painted bunting'
+    'American woodcock',
+    'Annas hummingbird',
+    'Atlantic puffin',
+    'Bald eagle',
+    'Barred owl',
+    'Barn owl',
+    'Black oystercatcher',
+    'Brant',
+    'California scrub jay',
+    'Common ground dove',
+    'Common raven',
+    'Dickcissel',
+    'Dunlin',
+    'Elegant tern',
+    'Glossy ibis',
+    'Great black-backed gull',
+    'Great egret',
+    'Greater scaup',
+    'King rail',
+    'Lucifer hummingbird',
+    'Monk parakeet',
+    'Painted bunting'
 ];
 
 async function fetch(): Promise<FetchResult> {

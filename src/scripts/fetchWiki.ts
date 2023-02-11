@@ -2,6 +2,7 @@ import * as rm from 'typed-rest-client/RestClient';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
+import * as jsdom from 'jsdom';
 
 //
 // This script automates fetching of bird images from wikipedia.
@@ -19,9 +20,8 @@ const CLIENT_OPTIONS = {
     }
 };
 
-interface attribution {
+interface Attribution {
     artist: string;
-    credit: string;
     license: string;
 }
 
@@ -88,7 +88,7 @@ async function fetchImageUrl(pageTitle: string): Promise<string> {
     return source;
 }
 
-async function fetchAttribution(imageUrl: string): Promise<attribution> {
+async function fetchAttribution(imageUrl: string): Promise<Attribution> {
     if (!imageUrl) {
         return Promise.reject('Image URL to fetch attribution for must not be empty');
     }
@@ -117,22 +117,19 @@ async function fetchAttribution(imageUrl: string): Promise<attribution> {
     }
 
     let artist = "";
-    let credit = "";
     let license = "";
     const fieldFn = function (key: string, value: any): boolean {
+        if (!value.value) {
+            return false;
+        }
+
         if (key === 'Artist') {
-            const regex = /<a.*>(.*)<\/a>/g;
-            const result = regex.exec(value.value as string)
-            artist = result ? result[1] : "";
-        } else if (key === 'Credit') {
-            const regex = /<span.*>(.*)<\/span>/g;
-            const result = regex.exec(value.value as string)
-            credit = result ? result[1] : "";
+            artist = parseArtist(value.value as string);
         } else if (key === 'LicenseShortName') {
             license = value.value as string;
         }
 
-        if (artist && credit && license) {
+        if (artist && license) {
             return true;
         }
 
@@ -144,16 +141,32 @@ async function fetchAttribution(imageUrl: string): Promise<attribution> {
     if (artist.length <= 0) {
         return Promise.reject(`Could not find artist: field is either not present or value is empty`);
     }
-    if (credit.length <= 0) {
-        return Promise.reject(`Could not find credit: field is either not present or value is empty`);
-    }
     if (license.length <= 0) {
         return Promise.reject(`Could not find license: field is either not present or value is empty`);
     }
 
-    console.log(`Found attribution ${artist} / ${credit} / ${license}`);
+    console.log(`Found attribution ${artist} / ${license}`);
 
-    return { artist: artist, credit: credit, license: license };
+    return { artist: artist, license: license };
+}
+
+function parseArtist(text: string): string {
+    // Unfortunately, the format of the artist value varies widely. It can be plain text or html with different nested elements.
+    if (text && text.startsWith('<')) {
+        // Parse value of innermost html element.
+        const dom = new jsdom.JSDOM(text);
+        const leaves = Array.from(dom.window.document.querySelectorAll('body *'))
+            .filter(e => !e.children.length);
+
+        if (leaves.length) {
+            return leaves[0].innerHTML;
+        }
+    } else {
+        // Assume this is plain text.
+        return text;
+    }
+
+    return "";
 }
 
 async function downloadImage(targetDir: string, url: string, title: string): Promise<string> {
@@ -240,7 +253,6 @@ export interface ImageResult {
     fileUrl: string;
     article: string;
     artist: string;
-    credit: string;
     license: string;
 }
 
@@ -251,7 +263,7 @@ async function fetchImageData(searchTerm: string, targetDir: string): Promise<Im
     // Perform download as a last step to avoid leaving files when other steps failed (e.g. attribution not found).
     const fileName = await downloadImage(targetDir, url, searchTerm);
 
-    return { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, credit: attribution.credit, license: attribution.license };
+    return { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, license: attribution.license };
 }
 
 export default fetchImageData;
