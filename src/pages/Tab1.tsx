@@ -15,12 +15,14 @@ interface BirdPair {
 const FILE_DIR = 'assets/birds/'
 
 // TODO: Attribute authors and license of images and sounds.
-// TODO: Consider measuring time in additon to points (consider start and stop buttons).
+// TODO: Improve layout, e.g. for mobile show birds next to each other.
 // TODO: Add a mechanism to prevent showing the same (correct) bird multiple times.
+// TODO: Set fixed size of rounds (e.g. 10).
+// TODO: Consider measuring time in additon to points (consider start and stop buttons).
 // TODO: Add error handling for sound playing.
-// TODO: Check why page is loaded twice initially.
-// TODO: Fix bugs that occurr due to too many state updates.
+// TODO: Check why state is loaded multiple times initially.
 // TODO: Remove debug output.
+// TODO: Consider automatic playing of sound.
 const Tab1: React.FC = () => {
 
   const nextRandomInt = (maxExclusive: number): number => {
@@ -116,7 +118,7 @@ const Tab1: React.FC = () => {
           onConfirm={(name => handleResult(name))}
         />
 
-        <IonFab slot='fixed' vertical='bottom' horizontal='center'>
+        <IonFab slot='fixed' vertical='bottom' horizontal='end'>
           <IonFabButton onClick={() => playSound()}>
             <IonIcon icon={musicalNote}></IonIcon>
           </IonFabButton>
