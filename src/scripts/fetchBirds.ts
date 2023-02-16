@@ -1,7 +1,8 @@
-import fetchImageData, { ImageResult } from './fetchWiki';
-import fetchSoundData, { SoundResult } from './fetchXeno';
+import fetchImageData from './fetchWiki';
+import fetchSoundData from './fetchXeno';
 import * as fs from 'fs';
 import * as path from 'path';
+import { ImageMeta, SoundMeta } from '../models/Meta';
 
 
 //
@@ -16,8 +17,8 @@ const TARGET_DIR = '/home/bisensee/repos/birds/public/assets/birds';
 
 interface Bird {
     name: string;
-    image: ImageResult;
-    sound: SoundResult;
+    image: ImageMeta;
+    sound: SoundMeta;
 }
 
 interface Failure {
@@ -72,8 +73,8 @@ async function fetch(): Promise<FetchResult> {
     for (let index in birds) {
         const bird = birds[index];
 
-        let image: ImageResult | null = null;
-        let sound: SoundResult | null = null;
+        let image: ImageMeta | null = null;
+        let sound: SoundMeta | null = null;
 
         try {
             image = await fetchImageData(bird, TARGET_DIR);
@@ -90,7 +91,7 @@ async function fetch(): Promise<FetchResult> {
     return { loaded: loaded, failed: failed }
 }
 
-function cleanupFailedDownload(image: ImageResult | null, sound: SoundResult | null) {
+function cleanupFailedDownload(image: ImageMeta | null, sound: SoundMeta | null) {
     if (image && image.fileName) {
         const imagePath = path.join(TARGET_DIR, image.fileName);
         console.log(`Removing ${imagePath} due to fetch error`);

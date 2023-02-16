@@ -2,6 +2,7 @@ import * as rm from 'typed-rest-client/RestClient';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
+import { SoundMeta } from '../models/Meta';
 
 //
 // This script automates fetching of bird sound recordings from xeno-canto.
@@ -114,16 +115,7 @@ async function downloadRecording(targetDir: string, recording: Recording): Promi
     });
 }
 
-export interface SoundResult {
-    fileName: string;
-    fileUrl: string;
-    length: string;
-    recordist: string;
-    url: string;
-    licenseUrl: string;
-}
-
-async function fetchSoundData(searchTerm: string, targetDir: string): Promise<SoundResult> {
+async function fetchSoundData(searchTerm: string, targetDir: string): Promise<SoundMeta> {
     const recording = await fetchRecordingMeta(searchTerm);
     const fileName = await downloadRecording(targetDir, recording);
 

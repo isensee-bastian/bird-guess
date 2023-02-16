@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
 import * as jsdom from 'jsdom';
+import { ImageMeta } from '../models/Meta';
 
 //
 // This script automates fetching of bird images from wikipedia.
@@ -248,15 +249,7 @@ async function fetchPageTitle(term: string): Promise<string> {
     return title;
 }
 
-export interface ImageResult {
-    fileName: string;
-    fileUrl: string;
-    article: string;
-    artist: string;
-    license: string;
-}
-
-async function fetchImageData(searchTerm: string, targetDir: string): Promise<ImageResult> {
+async function fetchImageData(searchTerm: string, targetDir: string): Promise<ImageMeta> {
     const title = await fetchPageTitle(searchTerm);
     const url = await fetchImageUrl(title);
     const attribution = await fetchAttribution(url);
