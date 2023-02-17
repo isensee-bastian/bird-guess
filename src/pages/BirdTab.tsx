@@ -1,12 +1,10 @@
-import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
+import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import './BirdTab.css';
 import { musicalNote } from 'ionicons/icons';
 import BirdGrid from '../components/BirdGrid';
 import { useEffect, useState } from 'react';
 import { Bird } from '../models/Meta';
 
-
-// TODO: Check if there is a better alternative for having a correct field.
 interface BirdTabProps {
   dir: string;
   first: Bird;
@@ -32,18 +30,23 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
   }
 };
 
+function join(first: string, second: string): string {
+  if (first.endsWith('/')) {
+    return first + second;
+  }
+
+  return first + '/' + second;
+}
+
 // Note: Autoplay of sounds is usually blocked in the browser.
-// TODO: Move state one layer up, i.e. calculate pairs in advance.
 // TODO: Attribute authors and license of images and sounds.
 // TODO: Improve layout, e.g. for mobile show birds next to each other.
-// TODO: Add a mechanism to prevent showing the same (correct) bird multiple times.
-// TODO: Set fixed size of rounds (e.g. 10).
 // TODO: Consider measuring time in additon to points (consider start and stop buttons).
+// TODO: Check if there is a better alternative for having a "correct" field in BirdTabProps.
 // TODO: Add error handling for sound playing.
-// TODO: Check why state is loaded multiple times initially.
+// TODO: Check why state is loaded twice initially.
 // TODO: Remove debug output.
-// TODO: Consider automatic playing of sound.
-// TODO: Consider using path join instead of string concatenation.
+// TODO: Consider hiding the settings tab for the beginning if no settings are implemented yet.
 const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
@@ -54,7 +57,7 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
     pauseSound(sound);
 
     console.log(`Creating audio for: ${correct.sound.fileName}`);
-    setSound(new Audio(`${dir}${correct.sound.fileName}`));
+    setSound(new Audio(join(dir, correct.sound.fileName)));
   }, [correct.name]);
 
   return (
@@ -72,10 +75,10 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
         </IonHeader>
 
         <BirdGrid
-          leftImgFile={`${dir}${first.image.fileName}`}
-          rightImgFile={`${dir}${second.image.fileName}`}
-          leftName={`${first.name}`}
-          rightName={`${second.name}`}
+          leftImgFile={join(dir, first.image.fileName)}
+          rightImgFile={join(dir, second.image.fileName)}
+          leftName={first.name}
+          rightName={second.name}
           score={score}
           onConfirm={(name => onChosen(name))}
         />

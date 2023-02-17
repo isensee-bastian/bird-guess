@@ -1,7 +1,6 @@
 import './BirdGrid.css';
 
 import { IonCol, IonGrid, IonRow } from "@ionic/react";
-import { leafOutline } from "ionicons/icons";
 import BirdCard from "./BirdCard";
 import ScoreCard from "./ScoreCard";
 
@@ -14,7 +13,6 @@ interface BirdGridProps {
     onConfirm: (name: string) => void,
 }
 
-// TODO: Improve layout for different screen sizes.
 const BirdGrid: React.FC<BirdGridProps> = ({ leftImgFile, rightImgFile, leftName, rightName, score, onConfirm }) => {
     return (
         <IonGrid className="bird-grid" fixed={true}>

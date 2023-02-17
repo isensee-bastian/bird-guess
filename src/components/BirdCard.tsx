@@ -39,7 +39,7 @@ const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name, onConfirm }) => {
                 <IonCardSubtitle>{name}</IonCardSubtitle>
             </IonCardHeader>
             <IonCardContent className="bird-content" onClick={() => showConfirm()}>
-                <img className="bird-image" alt="Bird image" src={imgFile} />
+                <img className="bird-image" alt={name} src={imgFile} />
             </IonCardContent>
         </IonCard >
     );
