@@ -22,9 +22,7 @@ const pauseSound = (sound: HTMLAudioElement | undefined) => {
 };
 
 const playSound = (sound: HTMLAudioElement | undefined) => {
-  pauseSound(sound);
-
-  if (sound) {
+  if (sound && sound.paused) {
     console.log(`Playing sound`);
     sound.play();
   }
@@ -47,18 +45,20 @@ function join(first: string, second: string): string {
 // TODO: Check why state is loaded twice initially.
 // TODO: Remove debug output.
 // TODO: Consider hiding the settings tab for the beginning if no settings are implemented yet.
+// TODO: Consider refactoring state to objects.
 const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
 
   useEffect(() => {
     console.log(`Correct is: ${correct.name}`)
-
-    pauseSound(sound);
-
     console.log(`Creating audio for: ${correct.sound.fileName}`);
-    setSound(new Audio(join(dir, correct.sound.fileName)));
-  }, [correct.name]);
+
+    setSound((old) => {
+      pauseSound(old);
+      return new Audio(join(dir, correct.sound.fileName))
+    });
+  }, [correct.name, correct.sound.fileName, dir]);
 
   return (
     <IonPage>
@@ -82,7 +82,6 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
           score={score}
           onConfirm={(name => onChosen(name))}
         />
-
 
         <IonFab slot='fixed' vertical='bottom' horizontal='end'>
           <IonFabButton onClick={() => playSound(sound)}>
