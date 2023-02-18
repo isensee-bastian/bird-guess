@@ -14,9 +14,8 @@ import {
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
-import { dice, settings } from 'ionicons/icons';
+import { book, dice } from 'ionicons/icons';
 import BirdTab from './pages/BirdTab';
-import SettingsTab from './pages/SettingsTab';
 import allBirds from './birds.json';
 
 /* Core CSS required for Ionic components to work properly */
@@ -38,6 +37,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { Bird } from './models/Meta';
+import AttributionsTab from './pages/AttributionsTab';
 
 setupIonicReact();
 
@@ -135,6 +135,8 @@ const App: React.FC = () => {
     }
   };
 
+  const [showAttributionAlert] = useIonAlert();
+
   return (<IonApp>
     <IonReactRouter>
       <IonTabs>
@@ -158,7 +160,7 @@ const App: React.FC = () => {
             </>
           </Route>
           <Route exact path="/tab2">
-            <SettingsTab />
+            <AttributionsTab birds={allBirds} />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
@@ -170,8 +172,8 @@ const App: React.FC = () => {
             <IonLabel>Play</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={settings} />
-            <IonLabel>Settings</IonLabel>
+            <IonIcon icon={book} />
+            <IonLabel>Attribution</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

@@ -3,25 +3,26 @@ import './BirdGrid.css';
 import { IonCol, IonGrid, IonRow } from "@ionic/react";
 import BirdCard from "./BirdCard";
 import ScoreCard from "./ScoreCard";
+import { Bird } from '../models/Meta';
 
 interface BirdGridProps {
-    leftImgFile: string,
-    rightImgFile: string,
-    leftName: string,
-    rightName: string,
-    score: number,
-    onConfirm: (name: string) => void,
+    dir: string;
+    first: Bird;
+    second: Bird;
+    score: number;
+    onConfirm: (name: string) => void;
+    onAttribution: () => void;
 }
 
-const BirdGrid: React.FC<BirdGridProps> = ({ leftImgFile, rightImgFile, leftName, rightName, score, onConfirm }) => {
+const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, score, onConfirm, onAttribution }) => {
     return (
         <IonGrid className="bird-grid" fixed={true}>
             <IonRow>
                 <IonCol>
-                    <BirdCard imgFile={leftImgFile} name={leftName} onConfirm={() => onConfirm(leftName)} />
+                    <BirdCard dir={dir} bird={first} onConfirm={() => onConfirm(first.name)} onAttribution={onAttribution} />
                 </IonCol>
                 <IonCol>
-                    <BirdCard imgFile={rightImgFile} name={rightName} onConfirm={() => onConfirm(rightName)} />
+                    <BirdCard dir={dir} bird={second} onConfirm={() => onConfirm(second.name)} onAttribution={onAttribution} />
                 </IonCol>
             </IonRow>
             <IonRow>

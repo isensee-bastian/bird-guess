@@ -1,22 +1,25 @@
 import './BirdCard.css';
 
 import React from 'react';
-import { useIonAlert, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle } from '@ionic/react';
+import { useIonAlert, IonCard, IonCardContent, IonCardHeader, IonButton, IonCardTitle } from '@ionic/react';
+import { Bird } from '../models/Meta';
+import { join } from '../util/strconv';
 
 
 interface BirdCardProps {
-    imgFile: string,
-    name: string,
-    onConfirm: (name: string) => void,
+    dir: string;
+    bird: Bird;
+    onConfirm: (name: string) => void;
+    onAttribution: () => void;
 }
 
-const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name, onConfirm }) => {
+const BirdCard: React.FC<BirdCardProps> = ({ dir, bird, onConfirm, onAttribution }) => {
     const [presentAlert] = useIonAlert();
 
     const showConfirm = () => {
         presentAlert({
-            header: name,
-            message: `Are you guessing ${name}?`,
+            header: bird.name,
+            message: `Are you guessing ${bird.name}?`,
             buttons: [
                 {
                     text: 'No',
@@ -26,7 +29,7 @@ const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name, onConfirm }) => {
                     text: 'Yes',
                     role: 'confirm',
                     handler: () => {
-                        onConfirm(name);
+                        onConfirm(bird.name);
                     },
                 },
             ],
@@ -36,11 +39,14 @@ const BirdCard: React.FC<BirdCardProps> = ({ imgFile, name, onConfirm }) => {
     return (
         <IonCard className="bird-card" button={true} >
             <IonCardHeader>
-                <IonCardSubtitle>{name}</IonCardSubtitle>
+                <IonCardTitle>{bird.name}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent className="bird-content" onClick={() => showConfirm()}>
-                <img className="bird-image" alt={name} src={imgFile} />
+                <img className="bird-image" alt={bird.name} src={join(dir, bird.image.fileName)} />
             </IonCardContent>
+            <IonButton size="small" fill="clear" color="medium" onClick={onAttribution}>
+                Attribution
+            </IonButton>
         </IonCard >
     );
 };

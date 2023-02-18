@@ -4,6 +4,8 @@ import { musicalNote } from 'ionicons/icons';
 import BirdGrid from '../components/BirdGrid';
 import { useEffect, useState } from 'react';
 import { Bird } from '../models/Meta';
+import AttributionModal from '../components/AttributionModal';
+import { join } from '../util/strconv';
 
 interface BirdTabProps {
   dir: string;
@@ -28,24 +30,20 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
   }
 };
 
-function join(first: string, second: string): string {
-  if (first.endsWith('/')) {
-    return first + second;
-  }
-
-  return first + '/' + second;
-}
-
 // Note: Autoplay of sounds is usually blocked in the browser.
-// TODO: Attribute authors and license of images and sounds.
-// TODO: Improve layout, e.g. for mobile show birds next to each other.
-// TODO: Consider measuring time in additon to points (consider start and stop buttons).
-// TODO: Check if there is a better alternative for having a "correct" field in BirdTabProps.
-// TODO: Add error handling for sound playing.
-// TODO: Check why state is loaded twice initially.
-// TODO: Remove debug output.
-// TODO: Consider hiding the settings tab for the beginning if no settings are implemented yet.
-// TODO: Consider refactoring state to objects.
+// Required for release:
+//   * Improve layout, e.g. for mobile show birds next to each other.
+//   * Add more birds.
+//   * Convert bird images to smaller size in order to not bloat application size.
+//   * Remove or disable debug output.
+//   * Solid testing, also on mobile.
+// Nice to have improvements:
+//   * Consider measuring time in additon to points (consider start and stop buttons).
+//   * Check if there is a better alternative for having a "correct" field in BirdTabProps.
+//   * Add error handling for sound playing.
+//   * Consider refactoring state to objects.
+//   * Consider harmonizing attribution format in terms of license (name vs link inconsistency).
+//   * Consider adding a help text.
 const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
@@ -59,6 +57,8 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
       return new Audio(join(dir, correct.sound.fileName))
     });
   }, [correct.name, correct.sound.fileName, dir]);
+
+  const [attributionOpen, setAttributionOpen] = useState(false);
 
   return (
     <IonPage>
@@ -75,12 +75,12 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
         </IonHeader>
 
         <BirdGrid
-          leftImgFile={join(dir, first.image.fileName)}
-          rightImgFile={join(dir, second.image.fileName)}
-          leftName={first.name}
-          rightName={second.name}
+          dir={dir}
+          first={first}
+          second={second}
           score={score}
           onConfirm={(name => onChosen(name))}
+          onAttribution={() => setAttributionOpen(true)}
         />
 
         <IonFab slot='fixed' vertical='bottom' horizontal='end'>
@@ -88,6 +88,13 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
             <IonIcon icon={musicalNote}></IonIcon>
           </IonFabButton>
         </IonFab>
+
+        <AttributionModal
+          isOpen={attributionOpen}
+          first={first}
+          second={second}
+          onClose={() => setAttributionOpen(false)}
+        />
 
       </IonContent>
     </IonPage >
