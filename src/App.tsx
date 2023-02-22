@@ -147,6 +147,7 @@ const App: React.FC = () => {
                   first={birds[round * 2]}
                   second={birds[round * 2 + 1]}
                   correct={birds[round * 2 + correctOffsets[round]]}
+                  progress={(round + 1) / 10}
                   score={score}
                   onChosen={(name) => onChosen(name)}
                 />

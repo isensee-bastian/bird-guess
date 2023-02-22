@@ -1,4 +1,4 @@
-import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonPage, IonProgressBar, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './BirdTab.css';
 import { musicalNote } from 'ionicons/icons';
 import BirdGrid from '../components/BirdGrid';
@@ -12,6 +12,7 @@ interface BirdTabProps {
   first: Bird;
   second: Bird;
   correct: Bird;
+  progress: number;
   score: number;
   onChosen: (name: string) => void;
 }
@@ -37,14 +38,16 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 //   * Convert bird images to smaller size in order to not bloat application size.
 //   * Remove or disable debug output.
 //   * Solid testing, also on mobile.
+//   * Check which license is needed, especially due to usage of media licenses.
 // Nice to have improvements:
+//   * Consider renaming BirdTab to BirdList or something similar.
 //   * Consider measuring time in additon to points (consider start and stop buttons).
 //   * Check if there is a better alternative for having a "correct" field in BirdTabProps.
 //   * Add error handling for sound playing.
 //   * Consider refactoring state to objects.
 //   * Consider harmonizing attribution format in terms of license (name vs link inconsistency).
 //   * Consider adding a help text.
-const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, onChosen }) => {
+const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress, score, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
 
@@ -64,9 +67,20 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Bird Guessing</IonTitle>
+          <IonGrid>
+            <IonRow>
+              <IonCol size='8'>
+                <IonTitle>Bird Guessing</IonTitle>
+              </IonCol>
+              <IonCol size='4'>
+                  <IonTitle>Score: {score}</IonTitle>
+              </IonCol>
+            </IonRow>
+          </IonGrid>
+          <IonProgressBar value={progress}></IonProgressBar>
         </IonToolbar>
       </IonHeader>
+
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
@@ -78,7 +92,6 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, score, o
           dir={dir}
           first={first}
           second={second}
-          score={score}
           onConfirm={(name => onChosen(name))}
           onAttribution={() => setAttributionOpen(true)}
         />
