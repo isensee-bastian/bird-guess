@@ -1,6 +1,6 @@
 import './BirdGrid.css';
 
-import { IonCol, IonGrid, IonRow } from "@ionic/react";
+import { IonItem, IonList } from "@ionic/react";
 import BirdCard from "./BirdCard";
 import ScoreCard from "./ScoreCard";
 import { Bird } from '../models/Meta';
@@ -16,21 +16,20 @@ interface BirdGridProps {
 
 const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, score, onConfirm, onAttribution }) => {
     return (
-        <IonGrid className="bird-grid" fixed={true}>
-            <IonRow>
-                <IonCol>
+        <div className='wrapper'>
+            <IonList lines='none'>
+                <IonItem>
                     <BirdCard dir={dir} bird={first} onConfirm={() => onConfirm(first.name)} onAttribution={onAttribution} />
-                </IonCol>
-                <IonCol>
+                </IonItem>
+                <IonItem>
                     <BirdCard dir={dir} bird={second} onConfirm={() => onConfirm(second.name)} onAttribution={onAttribution} />
-                </IonCol>
-            </IonRow>
-            <IonRow>
-                <IonCol>
+                </IonItem>
+                <IonItem>
                     <ScoreCard score={score} />
-                </IonCol>
-            </IonRow>
-        </IonGrid>
+                </IonItem>
+            </IonList>
+        </div>
+
     );
 };
 

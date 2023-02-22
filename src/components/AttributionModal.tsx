@@ -12,7 +12,7 @@ interface AttributionModalProps {
 
 const AttributionModal: React.FC<AttributionModalProps> = ({ isOpen, first, second, onClose }) => {
     return (
-        <IonModal isOpen={isOpen}>
+        <IonModal isOpen={isOpen} onDidDismiss={onClose}>
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>Attribution</IonTitle>

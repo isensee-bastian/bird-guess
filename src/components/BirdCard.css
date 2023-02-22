@@ -1,9 +1,9 @@
 .bird-card {
-  width: 220px;
+  width: 280px;
 }
 
 .bird-content {
-  width: 200px;
+  width: 260px;
   height: 268px;
   overflow: hidden;
   display: flex;

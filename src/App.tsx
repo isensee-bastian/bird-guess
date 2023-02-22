@@ -135,8 +135,6 @@ const App: React.FC = () => {
     }
   };
 
-  const [showAttributionAlert] = useIonAlert();
-
   return (<IonApp>
     <IonReactRouter>
       <IonTabs>
