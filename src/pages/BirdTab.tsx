@@ -33,7 +33,6 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
-//   * Improve layout, e.g. for mobile show birds next to each other.
 //   * Add more birds.
 //   * Convert bird images to smaller size in order to not bloat application size.
 //   * Remove or disable debug output.
