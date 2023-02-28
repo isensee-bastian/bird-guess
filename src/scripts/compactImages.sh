@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# This helper script converts all jpg files in a given directory to a smaller version
+# if they exceed a certain size threshold. It will use resizing and quality reduction
+# in order to achive that.
+# Requirements: CLI tool 'convert' needs to be installed which can be found in image magick bundle for example.
+# Expected arguments: Source and target directory path.
+
 SIZE_COMPACT_STRONG_KB='1000'
 SIZE_COMPACT_MEDIUM_KB='500'
 
@@ -16,6 +22,7 @@ if [ ! -d "$TARGET_DIR" ]; then
 fi
 
 echo "Writing compacted images from $1 to $2"
+echo ""
 
 # Example: convert -resize 25% -quality 80% american_coot.jpg american_coot_25.jpg
 for file in "$SOURCE_DIR"/*.jpg; do

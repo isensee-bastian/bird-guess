@@ -1,8 +1,9 @@
-import * as rm from 'typed-rest-client/RestClient';
+import * as rm from 'typed-rest-client/RestClient.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
-import { SoundMeta } from '../models/Meta';
+import { SoundMeta } from '../models/Meta.js';
+import XenoResponseExample from './xenoResponseExample.json';
 
 //
 // This script automates fetching of bird sound recordings from xeno-canto.
@@ -12,23 +13,6 @@ import { SoundMeta } from '../models/Meta';
 // * Consider relaxing length filter if more results are needed.
 // * Consider checking the file type either with a library or by looking at the file-name ending (for now we are assuming mp3).
 //
-
-// Fields which we do not need right now have been omitted.
-interface RawResponse {
-    recordings: RawRecording[];
-}
-
-// Fields which we do not need right now have been omitted.
-interface RawRecording {
-    en: string;
-    type: string;
-    url: string;
-    file: string;
-    lic: string;
-    q: string;
-    length: string;
-    rec: string;
-}
 
 // Represents prepared recording meta data for further processing.
 class Recording {
@@ -41,7 +25,7 @@ class Recording {
     length: string;
     recordist: string;
 
-    constructor(recording: RawRecording) {
+    constructor(recording: typeof XenoResponseExample.recordings[0]) {
         // For some reason the provided URL and licencse URL start with // and
         // don't have an https: prefix. Therefore, we add it here.
         this.name = recording.en;
@@ -66,7 +50,7 @@ async function fetchRecordingMeta(name: string): Promise<Recording> {
     const url = `https://www.xeno-canto.org/api/2/recordings?query=${queryName}+len:10-25`;
 
     console.log(`Searching for ${queryName}`);
-    const response = await client.get<RawResponse>(url);
+    const response = await client.get<typeof XenoResponseExample>(url);
 
     if (response.statusCode !== 200) {
         return Promise.reject(`Unexpected status code received for url ${url} : ${response.statusCode}`);
@@ -76,7 +60,21 @@ async function fetchRecordingMeta(name: string): Promise<Recording> {
         return Promise.reject(`No recording results found for url ${url}`);
     }
 
-    const recording = new Recording(response.result.recordings[0]);
+    // Pick the first recording where file name is mp3. There can be wav files etc. that we want to skip.
+    let chosen: typeof XenoResponseExample.recordings[0] | null = null
+
+    for (let current of response.result.recordings) {
+        if (current['file-name'].endsWith('mp3')) {
+            chosen = current;
+            break;
+        }
+    }
+
+    if (!chosen) {
+        return Promise.reject(`Could not find any recording where file name ends with mp3`);
+    }
+
+    const recording = new Recording(chosen);
     console.log(`Found recording: ${recording.name}`);
 
     return recording;

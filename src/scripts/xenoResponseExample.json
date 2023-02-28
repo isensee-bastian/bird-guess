@@ -1,0 +1,59 @@
+{
+    "numRecordings": "1",
+    "numSpecies": "1",
+    "page": 1,
+    "numPages": 1,
+    "recordings": [
+        {
+            "id": "777841",
+            "gen": "Falco",
+            "sp": "peregrinus",
+            "ssp": "",
+            "group": "birds",
+            "en": "Peregrine Falcon",
+            "rec": "Vladim\u00edr Nem\u010dek",
+            "cnt": "Slovakia",
+            "loc": "Stupava, Malacky, Bratislavsk\u00fd kraj",
+            "lat": "48.2645",
+            "lng": "17.1182",
+            "alt": "320",
+            "type": "alarm call, flight call",
+            "sex": "uncertain",
+            "stage": "adult",
+            "method": "field recording",
+            "url": "\/\/xeno-canto.org\/777841",
+            "file": "https:\/\/xeno-canto.org\/777841\/download",
+            "file-name": "XC777841-fperegrinus_230201_prepadle.wav",
+            "sono": {
+                "small": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/ffts\/XC777841-small.png",
+                "med": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/ffts\/XC777841-med.png",
+                "large": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/ffts\/XC777841-large.png",
+                "full": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/ffts\/XC777841-full.png"
+            },
+            "osci": {
+                "small": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/wave\/XC777841-small.png",
+                "med": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/wave\/XC777841-med.png",
+                "large": "\/\/xeno-canto.org\/sounds\/uploaded\/BDXEJXAEVH\/wave\/XC777841-large.png"
+            },
+            "lic": "\/\/creativecommons.org\/licenses\/by-nc-sa\/4.0\/",
+            "q": "A",
+            "length": "0:16",
+            "time": "10:30",
+            "date": "2023-02-01",
+            "uploaded": "2023-02-01",
+            "also": [
+                "Corvus corax"
+            ],
+            "rmk": "one bird and three ravens, old quarry with high cliffs, beech forest around, cloudy, +4 degrees Celsius, breeze and low wind, high-passed",
+            "bird-seen": "yes",
+            "animal-seen": "yes",
+            "playback-used": "no",
+            "temp": "",
+            "regnr": "",
+            "auto": "no",
+            "dvc": "Olympus LS-P4",
+            "mic": "",
+            "smp": "48000"
+        }
+    ]
+}

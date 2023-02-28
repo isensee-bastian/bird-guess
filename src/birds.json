@@ -46,10 +46,10 @@
         },
         "sound": {
             "fileName": "peregrine_falcon.mp3",
-            "fileUrl": "https://xeno-canto.org/777841/download",
-            "length": "0:16",
-            "recordist": "Vladimír Nemček",
-            "url": "https://xeno-canto.org/777841",
+            "fileUrl": "https://xeno-canto.org/777763/download",
+            "length": "0:11",
+            "recordist": "Marcin Sołowiej",
+            "url": "https://xeno-canto.org/777763",
             "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
         }
     },
@@ -100,11 +100,11 @@
         },
         "sound": {
             "fileName": "acorn_woodpecker.mp3",
-            "fileUrl": "https://xeno-canto.org/742321/download",
-            "length": "0:16",
-            "recordist": "Joost van Bruggen",
-            "url": "https://xeno-canto.org/742321",
-            "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            "fileUrl": "https://xeno-canto.org/780863/download",
+            "length": "0:18",
+            "recordist": "Richard E. Webster",
+            "url": "https://xeno-canto.org/780863",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
         }
     },
     {
@@ -201,10 +201,10 @@
         "name": "Bald eagle",
         "image": {
             "fileName": "bald_eagle.jpg",
-            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/About_to_Launch_%2826075320352%29.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Bald_Eagle_Plumage.jpg",
             "article": "Bald eagle",
-            "artist": "Andy Morffew",
-            "license": "CC BY 2.0"
+            "artist": "Nirajha",
+            "license": "CC BY-SA 4.0"
         },
         "sound": {
             "fileName": "bald_eagle.mp3",
@@ -222,7 +222,7 @@
             "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Strix-varia-005.jpg",
             "article": "Barred owl",
             "artist": "Mdf",
-            "license": "CC-BY-SA-3.0"
+            "license": "CC BY-SA 3.0"
         },
         "sound": {
             "fileName": "barred_owlet-nightjar.mp3",
@@ -244,10 +244,10 @@
         },
         "sound": {
             "fileName": "western_barn_owl.mp3",
-            "fileUrl": "https://xeno-canto.org/771408/download",
-            "length": "0:17",
-            "recordist": "Dominique Guillerme",
-            "url": "https://xeno-canto.org/771408",
+            "fileUrl": "https://xeno-canto.org/780905/download",
+            "length": "0:20",
+            "recordist": "Bas",
+            "url": "https://xeno-canto.org/780905",
             "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
         }
     },
@@ -334,10 +334,10 @@
         },
         "sound": {
             "fileName": "dunlin.mp3",
-            "fileUrl": "https://xeno-canto.org/777541/download",
-            "length": "0:10",
-            "recordist": "Paul Kelly",
-            "url": "https://xeno-canto.org/777541",
+            "fileUrl": "https://xeno-canto.org/770134/download",
+            "length": "0:12",
+            "recordist": "Michel Veldt",
+            "url": "https://xeno-canto.org/770134",
             "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
         }
     },
@@ -406,10 +406,10 @@
         },
         "sound": {
             "fileName": "great_egret.mp3",
-            "fileUrl": "https://xeno-canto.org/776170/download",
-            "length": "0:14",
-            "recordist": "Irish Wildlife Sounds",
-            "url": "https://xeno-canto.org/776170",
+            "fileUrl": "https://xeno-canto.org/773646/download",
+            "length": "0:12",
+            "recordist": "Frank Lambert",
+            "url": "https://xeno-canto.org/773646",
             "licenseUrl": "https://creativecommons.org/licenses/by-nc-nd/4.0/"
         }
     },

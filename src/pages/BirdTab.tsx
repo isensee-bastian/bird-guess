@@ -33,11 +33,12 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
-//   * Add more birds.
+//   * Add more birds (consider fetching a list of 100 or 200 bird types as a solid basis).
 //   * Convert bird images to smaller size in order to not bloat application size.
 //   * Remove or disable debug output.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
+//   * Setup Play Store access and check what is need for publishing.
 // Nice to have improvements:
 //   * Consider renaming BirdTab to BirdList or something similar.
 //   * Consider measuring time in additon to points (consider start and stop buttons).
@@ -72,7 +73,7 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
                 <IonTitle>Bird Guessing</IonTitle>
               </IonCol>
               <IonCol size='4'>
-                  <IonTitle>Score: {score}</IonTitle>
+                <IonTitle>Score: {score}</IonTitle>
               </IonCol>
             </IonRow>
           </IonGrid>

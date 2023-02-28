@@ -1,9 +1,9 @@
-import * as rm from 'typed-rest-client/RestClient';
+import * as rm from 'typed-rest-client/RestClient.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
 import * as jsdom from 'jsdom';
-import { ImageMeta } from '../models/Meta';
+import { ImageMeta } from '../models/Meta.js';
 
 //
 // This script automates fetching of bird images from wikipedia.
@@ -39,7 +39,7 @@ interface Attribution {
 // Second array contains page titles
 
 // Get main image by page tite:
-// http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=Blue%20jay
+// https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=Blue%20jay
 // {"batchcomplete":"","query":{"pages":{"213498":{"pageid":213498,"ns":0,"title":"Blue jay","original":{"source":"https://upload.wikimedia.org/wikipedia/commons/f/f4/Blue_jay_in_PP_%2830960%29.jpg","width":3319,"height":4526}}}}}
 // query.pages.213498.original.source (ID is the page ID)
 
@@ -56,10 +56,11 @@ async function fetchImageUrl(pageTitle: string): Promise<string> {
         return Promise.reject('Page title to get main image for must have at least two characters');
     }
 
+    const queryTitle = pageTitle.trim().replace(/(\s{1})/g, '%20');
     const client = new rm.RestClient(USER_AGENT);
-    const url = `http://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${pageTitle}`;
+    const url = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${queryTitle}`;
 
-    const response = await client.get<string>(url);
+    const response = await client.get<any>(url);
 
     if (response.statusCode !== 200) {
         return Promise.reject(`Unexpected status code received for url ${url} : ${response.statusCode}`);
