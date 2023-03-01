@@ -14,7 +14,7 @@ import {
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
-import { book, dice } from 'ionicons/icons';
+import { book, dice, helpCircle } from 'ionicons/icons';
 import BirdTab from './pages/BirdTab';
 import allBirds from './birds.json';
 
@@ -38,6 +38,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import { Bird } from './models/Meta';
 import AttributionsTab from './pages/AttributionsTab';
+import InfoTab from './pages/InfoTab';
 
 setupIonicReact();
 
@@ -161,6 +162,9 @@ const App: React.FC = () => {
           <Route exact path="/tab2">
             <AttributionsTab birds={allBirds} />
           </Route>
+          <Route exact path="/tab3">
+            <InfoTab />
+          </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
@@ -173,6 +177,10 @@ const App: React.FC = () => {
           <IonTabButton tab="tab2" href="/tab2">
             <IonIcon icon={book} />
             <IonLabel>Attribution</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/tab3">
+            <IonIcon icon={helpCircle} />
+            <IonLabel>Info</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

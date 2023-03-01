@@ -34,7 +34,7 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
 //   * Add more birds (consider fetching a list of 100 or 200 bird types as a solid basis).
-//   * Convert bird images to smaller size in order to not bloat application size.
+//   * Consider adding a help text.
 //   * Remove or disable debug output.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
@@ -46,7 +46,6 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 //   * Add error handling for sound playing.
 //   * Consider refactoring state to objects.
 //   * Consider harmonizing attribution format in terms of license (name vs link inconsistency).
-//   * Consider adding a help text.
 const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress, score, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
