@@ -1,10 +1,10 @@
-import './BirdGrid.css';
+import './BirdList.css';
 
 import { IonItem, IonList } from "@ionic/react";
 import BirdCard from "./BirdCard";
 import { Bird } from '../models/Meta';
 
-interface BirdGridProps {
+interface BirdListProps {
     dir: string;
     first: Bird;
     second: Bird;
@@ -12,7 +12,7 @@ interface BirdGridProps {
     onAttribution: () => void;
 }
 
-const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, onConfirm, onAttribution }) => {
+const BirdList: React.FC<BirdListProps> = ({ dir, first, second, onConfirm, onAttribution }) => {
     return (
         <div className='wrapper'>
             <IonList lines='none'>
@@ -28,4 +28,4 @@ const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, onConfirm, onAt
     );
 };
 
-export default BirdGrid;
+export default BirdList;

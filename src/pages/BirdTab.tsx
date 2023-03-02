@@ -1,7 +1,7 @@
 import { IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonPage, IonProgressBar, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import './BirdTab.css';
 import { musicalNote } from 'ionicons/icons';
-import BirdGrid from '../components/BirdGrid';
+import BirdList from '../components/BirdList';
 import { useEffect, useState } from 'react';
 import { Bird } from '../models/Meta';
 import AttributionModal from '../components/AttributionModal';
@@ -34,12 +34,12 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
 //   * Add more birds (consider fetching a list of 100 or 200 bird types as a solid basis).
-//   * Consider adding a help text.
 //   * Remove or disable debug output.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
 //   * Setup Play Store access and check what is need for publishing.
 // Nice to have improvements:
+//   * Fill version in about card automatically.
 //   * Consider renaming BirdTab to BirdList or something similar.
 //   * Consider measuring time in additon to points (consider start and stop buttons).
 //   * Check if there is a better alternative for having a "correct" field in BirdTabProps.
@@ -87,11 +87,11 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
           </IonToolbar>
         </IonHeader>
 
-        <BirdGrid
+        <BirdList
           dir={dir}
           first={first}
           second={second}
-          onConfirm={(name => onChosen(name))}
+          onConfirm={(name: string) => onChosen(name)}
           onAttribution={() => setAttributionOpen(true)}
         />
 
