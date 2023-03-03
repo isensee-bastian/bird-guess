@@ -39,6 +39,7 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 //   * Check which license is needed, especially due to usage of media licenses.
 //   * Setup Play Store access and check what is need for publishing.
 // Nice to have improvements:
+//   * Consider using axios for fetching in scripts.
 //   * Fill version in about card automatically.
 //   * Consider renaming BirdTab to BirdList or something similar.
 //   * Consider measuring time in additon to points (consider start and stop buttons).

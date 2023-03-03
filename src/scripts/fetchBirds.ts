@@ -6,6 +6,7 @@ import fetchSoundData from './fetchXeno.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ImageMeta, SoundMeta } from '../models/Meta.js';
+import birdNames from './birdNames.json' assert { type: "json" };
 
 
 //
@@ -15,10 +16,6 @@ import { ImageMeta, SoundMeta } from '../models/Meta.js';
 // * Go to this files directory.
 // * Compile typescript files: tsc --project ./tsconfig.json
 // * Run this script file with node and specify a target directory for download: node fetchBirds.js /home/bisensee/repos/birds/public/assets/birds/ 
-//
-// Ideas for future improvement:
-// * Consider using a large bird list as input: https://en.wikipedia.org/wiki/List_of_birds_by_common_name
-// * Consider using a random mechanism of a page like xeno canto for input.
 //
 
 interface Bird {
@@ -37,47 +34,12 @@ interface FetchResult {
     failed: Failure[];
 }
 
-const birds = [
-    'Blue jay',
-    'Black-browned albatross',
-    'Northern cardinal',
-    'Peregrine falcon',
-    'Pileated woodpecker',
-    'Short-eared owl',
-    'Acorn woodpecker',
-    'American black duck',
-    'American coot',
-    'American goldfinch',
-    'American woodcock',
-    'Annas hummingbird',
-    'Atlantic puffin',
-    'Bald eagle',
-    'Barred owl',
-    'Barn owl',
-    'Black oystercatcher',
-    'Brant',
-    'California scrub jay',
-    'Common ground dove',
-    'Common raven',
-    'Dickcissel',
-    'Dunlin',
-    'Elegant tern',
-    'Glossy ibis',
-    'Great black-backed gull',
-    'Great egret',
-    'Greater scaup',
-    'King rail',
-    'Lucifer hummingbird',
-    'Monk parakeet',
-    'Painted bunting'
-];
-
 async function fetch(targetDir: string): Promise<FetchResult> {
     const loaded: Bird[] = []
     const failed: Failure[] = []
 
-    for (let index in birds) {
-        const bird = birds[index];
+    for (let index in birdNames) {
+        const bird = birdNames[index];
 
         let image: ImageMeta | null = null;
         let sound: SoundMeta | null = null;

@@ -12,6 +12,9 @@
 /build
 /build_scripts
 
+# transpiled files
+*.js
+
 # misc
 .DS_Store
 .env.local

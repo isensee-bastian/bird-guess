@@ -39,39 +39,9 @@ import './theme/variables.css';
 import { Bird } from './models/Meta';
 import AttributionsTab from './pages/AttributionsTab';
 import InfoTab from './pages/InfoTab';
+import { randomIndexArray, shuffle } from './util/random';
 
 setupIonicReact();
-
-// Fisher-Yates algorithm adapted from: https://bost.ocks.org/mike/shuffle/
-function randomBirds(): Bird[] {
-  const birds = allBirds.slice(0);
-
-  let remaining = birds.length;
-  while (remaining) {
-    const random = randomInt(remaining);
-    remaining -= 1;
-
-    const temp = birds[remaining];
-    birds[remaining] = birds[random];
-    birds[random] = temp;
-  }
-
-  return birds;
-}
-
-function randomInt(maxExclusive: number): number {
-  return Math.floor(Math.random() * maxExclusive);
-}
-
-function randomIndexArray(maxExclusive: number, count: number): number[] {
-  const result: number[] = [];
-
-  for (let index = 0; index < count; index++) {
-    result.push(randomInt(maxExclusive));
-  }
-
-  return result;
-}
 
 const FILE_DIR = 'assets/birds/'
 
@@ -93,7 +63,7 @@ const App: React.FC = () => {
       setRestart(false);
       setRound(0);
       setScore(0);
-      setBirds(randomBirds());
+      setBirds(shuffle(allBirds));
       setCorrectOffsets(randomIndexArray(2, ROUNDS_COUNT));
     }
   }, [restart]);
