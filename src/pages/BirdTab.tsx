@@ -32,12 +32,13 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
 //   * Add more birds (consider fetching a list of 100 or 200 bird types as a solid basis).
-//   * Remove or disable debug output.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
 //   * Add link / attribution to bird name source.
-//   * Setup Play Store access and check what is need for publishing.
+//   * Setup Play Store access and check what is needed for publishing.
+//   * Create icon and screenshots / text etc. for store presence.
 // Nice to have improvements:
+//   * Check if there are still transpiled js files checked in and remove them from the repository.
 //   * Consider using axios for fetching in scripts.
 //   * Check scripts are not included in delivery (already exculded in tsconfig.json).
 //   * Fill version in about card automatically.

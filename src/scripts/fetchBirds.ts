@@ -6,7 +6,6 @@ import fetchSoundData from './fetchXeno.js';
 import * as fs from 'fs';
 import * as path from 'path';
 import { ImageMeta, SoundMeta } from '../models/Meta.js';
-import birdNames from './birdNames.json' assert { type: "json" };
 
 
 //
@@ -15,7 +14,8 @@ import birdNames from './birdNames.json' assert { type: "json" };
 // How to use:
 // * Go to this files directory.
 // * Compile typescript files: tsc --project ./tsconfig.json
-// * Run this script file with node and specify a target directory for download: node fetchBirds.js /home/bisensee/repos/birds/public/assets/birds/ 
+// * Run this script with node and specify a file containing bird names to search for as a json array and a target directory for download:
+//   node fetchBirds.js /home/bisensee/repos/birds/public/assets/birds/ 
 //
 
 interface Bird {
@@ -34,7 +34,7 @@ interface FetchResult {
     failed: Failure[];
 }
 
-async function fetch(targetDir: string): Promise<FetchResult> {
+async function fetch(birdNames: string[], targetDir: string): Promise<FetchResult> {
     const loaded: Bird[] = []
     const failed: Failure[] = []
 
@@ -73,19 +73,28 @@ function cleanupFailedDownload(targetDir: string, image: ImageMeta | null, sound
 }
 
 async function main() {
-    if (process.argv.length < 3) {
-        console.error("Expected target directory as argument");
+    if (process.argv.length < 4) {
+        console.error("Expected bird names file and target directory as argument");
         return;
     }
 
-    const targetDir = process.argv[2];
+    const namesArrayFile = process.argv[2];
+    if (!fs.existsSync(namesArrayFile)) {
+        console.error(`Bird names file ${namesArrayFile} does not exist`);
+        return;
+    }
+
+    const content = fs.readFileSync(namesArrayFile, { encoding: 'utf-8' });
+    const birdNames = JSON.parse(content) as string[];
+
+    const targetDir = process.argv[3];
     if (!fs.existsSync(targetDir)) {
-        console.error(`Target directory ${targetDir} does not exist`)
+        console.error(`Target directory ${targetDir} does not exist`);
         return;
     }
 
     console.log(`Starting bird fetching`);
-    const result = await fetch(targetDir);
+    const result = await fetch(birdNames, targetDir);
 
     console.log(``);
     console.log(`Fetching done`);
