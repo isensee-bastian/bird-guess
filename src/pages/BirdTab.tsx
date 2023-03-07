@@ -19,14 +19,12 @@ interface BirdTabProps {
 
 const pauseSound = (sound: HTMLAudioElement | undefined) => {
   if (sound) {
-    console.log(`Pausing sound`);
     sound.pause();
   }
 };
 
 const playSound = (sound: HTMLAudioElement | undefined) => {
   if (sound && sound.paused) {
-    console.log(`Playing sound`);
     sound.play();
   }
 };
@@ -37,9 +35,11 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 //   * Remove or disable debug output.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
+//   * Add link / attribution to bird name source.
 //   * Setup Play Store access and check what is need for publishing.
 // Nice to have improvements:
 //   * Consider using axios for fetching in scripts.
+//   * Check scripts are not included in delivery (already exculded in tsconfig.json).
 //   * Fill version in about card automatically.
 //   * Consider renaming BirdTab to BirdList or something similar.
 //   * Consider measuring time in additon to points (consider start and stop buttons).
@@ -52,9 +52,6 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
   const [sound, setSound] = useState<HTMLAudioElement>();
 
   useEffect(() => {
-    console.log(`Correct is: ${correct.name}`)
-    console.log(`Creating audio for: ${correct.sound.fileName}`);
-
     setSound((old) => {
       pauseSound(old);
       return new Audio(join(dir, correct.sound.fileName))

@@ -74,12 +74,10 @@ const App: React.FC = () => {
   const onChosen = (name: string) => {
     if (!birds || !correctOffsets) {
       // Shield against initial state loading not done yet.
-      console.log('onChosen - skip, state not initialized yet');
       return;
     }
 
     const correctBird = birds[round * 2 + correctOffsets[round]];
-    console.log(`Chose ${name} and correct is ${correctBird.name}`);
     const correct: boolean = correctBird.name === name;
 
     showSolutionToast({
@@ -91,7 +89,6 @@ const App: React.FC = () => {
 
     const newScore = correct ? score + 1 : score;
     setScore(newScore);
-    console.log(`Completed round ${round}`);
 
     if (round < ROUNDS_COUNT - 1) {
       setRound(round + 1);
