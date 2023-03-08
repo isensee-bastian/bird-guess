@@ -13,7 +13,6 @@ interface BirdTabProps {
   second: Bird;
   correct: Bird;
   progress: number;
-  score: number;
   onChosen: (name: string) => void;
 }
 
@@ -39,13 +38,12 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 //   * Check if there are still transpiled js files checked in and remove them from the repository.
 //   * Consider using axios for fetching in scripts.
 //   * Check scripts are not included in delivery (already exculded in tsconfig.json).
-//   * Fill version in about card automatically.
 //   * Consider measuring time in additon to points (consider start and stop buttons).
 //   * Check if there is a better alternative for having a "correct" field in BirdTabProps.
 //   * Add error handling for sound playing.
 //   * Consider refactoring state to objects.
 //   * Consider harmonizing attribution format in terms of license (name vs link inconsistency).
-const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress, score, onChosen }) => {
+const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
 
@@ -62,7 +60,7 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
     <IonPage>
       <IonContent fullscreen>
         <IonHeader>
-            <IonProgressBar value={progress}></IonProgressBar>
+          <IonProgressBar value={progress}></IonProgressBar>
         </IonHeader>
 
         <BirdList

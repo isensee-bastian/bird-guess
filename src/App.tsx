@@ -43,7 +43,9 @@ import { randomIndexArray, shuffle } from './util/random';
 
 setupIonicReact();
 
-const FILE_DIR = 'assets/birds/'
+const VERSION = '0.1.0';
+
+const FILE_DIR = 'assets/birds/';
 
 // Note that the lenght of birds must be greater or equal to this number multiplied with
 // the number of shown birds per round.
@@ -116,7 +118,6 @@ const App: React.FC = () => {
                   second={birds[round * 2 + 1]}
                   correct={birds[round * 2 + correctOffsets[round]]}
                   progress={(round + 1) / 10}
-                  score={score}
                   onChosen={(name) => onChosen(name)}
                 />
               }
@@ -130,7 +131,7 @@ const App: React.FC = () => {
             <AttributionsTab birds={allBirds} />
           </Route>
           <Route exact path="/tab3">
-            <InfoTab />
+            <InfoTab version={VERSION} />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />

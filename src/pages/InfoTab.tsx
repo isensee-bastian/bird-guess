@@ -2,9 +2,10 @@ import { IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonContent, IonHe
 import './InfoTab.css';
 
 interface InfoTabProps {
+  version: string;
 }
 
-const InfoTab: React.FC<InfoTabProps> = () => (
+const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
   <IonPage>
     <IonContent fullscreen className="ion-padding">
       <IonHeader collapse="condense">
@@ -69,10 +70,10 @@ const InfoTab: React.FC<InfoTabProps> = () => (
 
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>App Version</IonCardTitle>
+          <IonCardTitle>About the App</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
-          <p>Bird Guess v0.1.0 ({getPlatforms()})</p>
+          <p>Bird Guess / {version} / {getPlatforms()}</p>
         </IonCardContent>
       </IonCard>
 
