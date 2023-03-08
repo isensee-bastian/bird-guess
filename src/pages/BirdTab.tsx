@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonFab, IonFabButton, IonGrid, IonHeader, IonIcon, IonPage, IonProgressBar, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonProgressBar } from '@ionic/react';
 import './BirdTab.css';
 import { musicalNote } from 'ionicons/icons';
 import BirdList from '../components/BirdList';
@@ -31,18 +31,15 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
-//   * Add more birds (consider fetching a list of 100 or 200 bird types as a solid basis).
+//   * Create icon and screenshots / text etc. for store presence.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
-//   * Add link / attribution to bird name source.
 //   * Setup Play Store access and check what is needed for publishing.
-//   * Create icon and screenshots / text etc. for store presence.
 // Nice to have improvements:
 //   * Check if there are still transpiled js files checked in and remove them from the repository.
 //   * Consider using axios for fetching in scripts.
 //   * Check scripts are not included in delivery (already exculded in tsconfig.json).
 //   * Fill version in about card automatically.
-//   * Consider renaming BirdTab to BirdList or something similar.
 //   * Consider measuring time in additon to points (consider start and stop buttons).
 //   * Check if there is a better alternative for having a "correct" field in BirdTabProps.
 //   * Add error handling for sound playing.
@@ -63,27 +60,9 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonGrid>
-            <IonRow>
-              <IonCol size='8'>
-                <IonTitle>Bird Guessing</IonTitle>
-              </IonCol>
-              <IonCol size='4'>
-                <IonTitle>Score: {score}</IonTitle>
-              </IonCol>
-            </IonRow>
-          </IonGrid>
-          <IonProgressBar value={progress}></IonProgressBar>
-        </IonToolbar>
-      </IonHeader>
-
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Bird Guessing</IonTitle>
-          </IonToolbar>
+        <IonHeader>
+            <IonProgressBar value={progress}></IonProgressBar>
         </IonHeader>
 
         <BirdList

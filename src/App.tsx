@@ -14,7 +14,7 @@ import {
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
-import { book, dice, helpCircle } from 'ionicons/icons';
+import { book, checkmarkOutline, closeOutline, dice, helpCircle } from 'ionicons/icons';
 import BirdTab from './pages/BirdTab';
 import allBirds from './birds.json';
 
@@ -79,16 +79,16 @@ const App: React.FC = () => {
 
     const correctBird = birds[round * 2 + correctOffsets[round]];
     const correct: boolean = correctBird.name === name;
+    const newScore = correct ? score + 1 : score;
+    setScore(newScore);
 
     showSolutionToast({
       message: correct ? 'Correct answer!' : 'Wrong answer...',
       duration: 2000,
       position: 'bottom',
       color: correct ? 'success' : 'danger',
+      icon: correct ? checkmarkOutline : closeOutline
     });
-
-    const newScore = correct ? score + 1 : score;
-    setScore(newScore);
 
     if (round < ROUNDS_COUNT - 1) {
       setRound(round + 1);

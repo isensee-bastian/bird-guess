@@ -6,11 +6,6 @@ interface InfoTabProps {
 
 const InfoTab: React.FC<InfoTabProps> = () => (
   <IonPage>
-    <IonHeader>
-      <IonToolbar>
-        <IonTitle>Info</IonTitle>
-      </IonToolbar>
-    </IonHeader>
     <IonContent fullscreen className="ion-padding">
       <IonHeader collapse="condense">
         <IonToolbar>
@@ -51,9 +46,11 @@ const InfoTab: React.FC<InfoTabProps> = () => (
         <IonCardContent>
           <p>
             Special thanks to all bird photographers and recordists who make their great work available
-            for others. Pictures are taken from <a href='https://www.wikipedia.org/'>Wikipedia</a> and
-            recordings from <a href='https://xeno-canto.org/'>xeno-canto</a>. Please click the attributions
+            for others. Pictures are taken from <a href='https://www.wikimedia.org/'>wikimedia.org</a> and
+            recordings from <a href='https://xeno-canto.org/'>xeno-canto.org</a>. Please click the attributions
             tab or attributions button below bird images for specific media authors, URLs and licenses.
+            Another big thanks goes to <a href='https://www.bird-sounds.net/'>bird-sounds.net</a> for their
+            comprehensive bird overview from A to Z.
           </p>
         </IonCardContent>
       </IonCard>
