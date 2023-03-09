@@ -7,7 +7,7 @@ interface InfoTabProps {
 
 const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
   <IonPage>
-    <IonContent fullscreen className="ion-padding">
+    <IonContent className="ion-padding">
       <IonHeader collapse="condense">
         <IonToolbar>
           <IonTitle size="large">Info</IonTitle>

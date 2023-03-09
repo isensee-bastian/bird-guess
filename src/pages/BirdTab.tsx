@@ -30,6 +30,7 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
+//   * Fix layout issue, on mobile / android progress bar and sometimes first name disappear sometimes.
 //   * Create icon and screenshots / text etc. for store presence.
 //   * Solid testing, also on mobile.
 //   * Check which license is needed, especially due to usage of media licenses.
@@ -58,7 +59,7 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
 
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent>
         <IonHeader>
           <IonProgressBar value={progress}></IonProgressBar>
         </IonHeader>

@@ -10,7 +10,7 @@ interface AttributionsTabProps {
 const AttributionsTab: React.FC<AttributionsTabProps> = ({ birds }) => {
   return (
     <IonPage>
-      <IonContent fullscreen className="ion-padding">
+      <IonContent className="ion-padding">
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Attribution</IonTitle>
