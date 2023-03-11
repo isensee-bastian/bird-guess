@@ -37,13 +37,15 @@ const BirdCard: React.FC<BirdCardProps> = ({ dir, bird, onConfirm, onAttribution
     };
 
     return (
-        <IonCard className="bird-card" button={true} >
-            <IonCardHeader>
-                <IonCardTitle>{bird.name}</IonCardTitle>
-            </IonCardHeader>
-            <IonCardContent className="bird-content" onClick={() => showConfirm()}>
-                <img className="bird-image" alt={bird.name} src={join(dir, bird.image.fileName)} />
-            </IonCardContent>
+        <IonCard className="bird-card" button={true}>
+            <div onClick={() => showConfirm()}>
+                <IonCardHeader >
+                    <IonCardTitle>{bird.name}</IonCardTitle>
+                </IonCardHeader>
+                <IonCardContent className="bird-content">
+                    <img className="bird-image" alt={bird.name} src={join(dir, bird.image.fileName)} />
+                </IonCardContent>
+            </div>
             <IonButton size="small" fill="clear" color="medium" onClick={onAttribution}>
                 Attribution
             </IonButton>
