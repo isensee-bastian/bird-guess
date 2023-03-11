@@ -13,7 +13,7 @@ import { ImageMeta } from '../models/Meta.js';
 // * Consider fetching (or converting to) smaller images to save storage space.
 //
 
-const USER_AGENT = 'BirdScript/0.1 (daniel.schulz1590@protonmail.com)';
+const USER_AGENT = 'bird-guess-scripts/0.1.0 (daniel.schulz1590@protonmail.com)';
 
 const CLIENT_OPTIONS = {
     headers: {
@@ -30,8 +30,6 @@ interface Attribution {
 // User-Agent
 // Example: MyCoolTool/1.1 (https://example.org/MyCoolTool/; MyCoolTool@example.org) UsedBaseLibrary/1.4'
 // The generic format is <client name>/<version> (<contact information>) <library/framework name>/<version> [<library name>/<version> ...]
-// 
-// BirdScript/0.1 (daniel.schulz1590@protonmail.com)
 
 // Get page title by search:
 // https://en.wikipedia.org/w/api.php?action=opensearch&search=Blue%20jay&limit=1&namespace=*&format=json

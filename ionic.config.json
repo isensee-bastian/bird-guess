@@ -1,5 +1,5 @@
 {
-  "name": "birds",
+  "name": "Bird Guess",
   "integrations": {
     "capacitor": {}
   },

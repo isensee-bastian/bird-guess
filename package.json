@@ -1,6 +1,6 @@
 {
-  "name": "birds",
-  "version": "0.0.1",
+  "name": "bird-guess",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@capacitor/android": "4.6.2",
@@ -72,6 +72,5 @@
   },
   "devDependencies": {
     "@capacitor/cli": "4.6.2"
-  },
-  "description": "An Ionic project"
+  }
 }
