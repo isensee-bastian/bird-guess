@@ -30,12 +30,10 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
-//   * Update app name to bird guess.
 //   * Setup Play Store access and check what is needed for publishing.
 //   * Add attribution and text to splash screen (or remove it for now).
-//   * Add contact / source code reference and commit to github (select license).
+//   * Commit to github (select license), decide how to provide bird media files (due to different license).
 // Nice to have improvements:
-//   * Check if there are still transpiled js files checked in and remove them from the repository.
 //   * Consider using axios for fetching in scripts.
 //   * Check scripts are not included in delivery (already exculded in tsconfig.json).
 //   * Consider measuring time in additon to points (consider start and stop buttons).

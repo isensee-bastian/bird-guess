@@ -33,9 +33,9 @@ const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
         </IonCardHeader>
         <IonCardContent>
           <p>
-            Make sure you are in a quiet place and that your device is not muted. Then press on
-            the musical note button in the first tab and listen carefully. Turn the volume up
-            if needed.
+            Make sure you are in a quiet place and that your device is not muted. Then press
+            the musical note button in the first tab and listen carefully. Turn the volume
+            up if needed or use headphones for a better listening experience.
           </p>
         </IonCardContent>
       </IonCard>
@@ -63,17 +63,19 @@ const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
         <IonCardContent>
           <p>
             If you enjoyed this game please rate it or write a short review to make it more visible.
-            If you have cool ideas or encountered any issues please let us know too, so we can improve the app.
+            If you have cool ideas or encountered any issues please let us know, so we can improve the app.
           </p>
         </IonCardContent>
       </IonCard>
 
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>About the App</IonCardTitle>
+          <IonCardTitle>About Bird Guess</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
-          <p>Bird Guess / {version} / {getPlatforms()}</p>
+          <p>Version: {version}</p>
+          <p>Platform: {getPlatforms()}</p>
+          <p>Souce code: <a href='https://github.com/isensee-bastian/bird-guess'>github.com/isensee-bastian/bird-guess</a></p>
         </IonCardContent>
       </IonCard>
 
