@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">birds</string>
-    <string name="title_activity_main">birds</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">Bird Guess</string>
+    <string name="title_activity_main">Bird Guess</string>
+    <string name="package_name">com.github.isenseebastian.birdguess</string>
+    <string name="custom_url_scheme">com.github.isenseebastian.birdguess</string>
 </resources>

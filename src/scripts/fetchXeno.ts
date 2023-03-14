@@ -39,12 +39,12 @@ class Recording {
     }
 }
 
-async function fetchRecordingMeta(name: string): Promise<Recording> {
+async function fetchRecordingMeta(name: string, userAgent: string): Promise<Recording> {
     if (name.trim().length < 2) {
         return Promise.reject('Bird name to search for must have at least two characters');
     }
 
-    const client = new rm.RestClient('test');
+    const client = new rm.RestClient(userAgent);
     const queryName = name.trim().replace(/(\s+)/g, '+').toLowerCase();
     // Search for matching bird recordings with sound file length between 10 and 25 seconds.
     const url = `https://www.xeno-canto.org/api/2/recordings?query=${queryName}+len:10-25`;
@@ -80,7 +80,7 @@ async function fetchRecordingMeta(name: string): Promise<Recording> {
     return recording;
 }
 
-async function downloadRecording(targetDir: string, recording: Recording): Promise<string> {
+async function downloadRecording(targetDir: string, recording: Recording, userAgent: string): Promise<string> {
     if (!recording.name || recording.name.trim().length < 2) {
         return Promise.reject('Bird name to use in file name must have at least two characters');
     }
@@ -88,9 +88,14 @@ async function downloadRecording(targetDir: string, recording: Recording): Promi
     const fileName = recording.name.trim().replace(/(\s+)/g, '_').toLowerCase() + '.mp3';
     const filePath = path.join(targetDir, fileName);
     const file = fs.createWriteStream(filePath);
+    const clientOptions = {
+        headers: {
+            'User-Agent': userAgent,
+        }
+    };
 
     return new Promise<string>((resolve, reject) => {
-        https.get(recording.fileUrl, function (response) {
+        https.get(recording.fileUrl, clientOptions, function (response) {
             if (response.statusCode !== 200) {
                 reject(`Unexpected status code received for url ${recording.fileUrl} : ${response.statusCode}`);
                 file.close();
@@ -113,9 +118,9 @@ async function downloadRecording(targetDir: string, recording: Recording): Promi
     });
 }
 
-async function fetchSoundData(searchTerm: string, targetDir: string): Promise<SoundMeta> {
-    const recording = await fetchRecordingMeta(searchTerm);
-    const fileName = await downloadRecording(targetDir, recording);
+async function fetchSoundData(searchTerm: string, targetDir: string, userAgent: string): Promise<SoundMeta> {
+    const recording = await fetchRecordingMeta(searchTerm, userAgent);
+    const fileName = await downloadRecording(targetDir, recording, userAgent);
 
     return { fileName: fileName, fileUrl: recording.fileUrl, length: recording.length, recordist: recording.recordist, url: recording.url, licenseUrl: recording.licenseUrl };
 }

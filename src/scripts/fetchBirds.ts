@@ -15,7 +15,7 @@ import { ImageMeta, SoundMeta } from '../models/Meta.js';
 // * Go to this files directory.
 // * Compile typescript files: tsc --project ./tsconfig.json
 // * Run this script with node and specify a file containing bird names to search for as a json array and a target directory for download:
-//   node fetchBirds.js /home/bisensee/repos/birds/public/assets/birds/ 
+//   node fetchBirds.js /tmp/birdNames.json /tmp/birds/ 
 //
 
 interface Bird {
@@ -34,7 +34,7 @@ interface FetchResult {
     failed: Failure[];
 }
 
-async function fetch(birdNames: string[], targetDir: string): Promise<FetchResult> {
+async function fetch(birdNames: string[], targetDir: string, userAgent: string): Promise<FetchResult> {
     const loaded: Bird[] = []
     const failed: Failure[] = []
 
@@ -45,8 +45,8 @@ async function fetch(birdNames: string[], targetDir: string): Promise<FetchResul
         let sound: SoundMeta | null = null;
 
         try {
-            image = await fetchImageData(bird, targetDir);
-            sound = await fetchSoundData(bird, targetDir);
+            image = await fetchImageData(bird, targetDir, userAgent);
+            sound = await fetchSoundData(bird, targetDir, userAgent);
             loaded.push({ name: bird, image: image, sound: sound });
         } catch (exception) {
             console.error(`Fetching failed for ${bird}: ${exception}`);
@@ -73,8 +73,8 @@ function cleanupFailedDownload(targetDir: string, image: ImageMeta | null, sound
 }
 
 async function main() {
-    if (process.argv.length < 4) {
-        console.error("Expected bird names file and target directory as argument");
+    if (process.argv.length < 5) {
+        console.error("Expected bird names file, target directory and user agent as arguments");
         return;
     }
 
@@ -93,8 +93,14 @@ async function main() {
         return;
     }
 
+    const userAgent = process.argv[4];
+    if (!userAgent || userAgent.length < 3) {
+        console.error('User agent not specified or very short, please specify a descriptive name and some contact info, see https://meta.wikimedia.org/wiki/User-Agent_policy');
+        return;
+    }
+
     console.log(`Starting bird fetching`);
-    const result = await fetch(birdNames, targetDir);
+    const result = await fetch(birdNames, targetDir, userAgent);
 
     console.log(``);
     console.log(`Fetching done`);

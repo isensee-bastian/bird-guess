@@ -13,14 +13,6 @@ import { ImageMeta } from '../models/Meta.js';
 // * Consider fetching (or converting to) smaller images to save storage space.
 //
 
-const USER_AGENT = 'bird-guess-scripts/0.1.0 (daniel.schulz1590@protonmail.com)';
-
-const CLIENT_OPTIONS = {
-    headers: {
-        'User-Agent': USER_AGENT,
-    }
-};
-
 interface Attribution {
     artist: string;
     license: string;
@@ -49,13 +41,13 @@ interface Attribution {
 // Example attribution: By Rhododendrites - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=103770921
 // query.pages.value.-1.imageinfo.extmetadata. -> Artist.value (tag value) + Credit + LicenseShortName + ?
 
-async function fetchImageUrl(pageTitle: string): Promise<string> {
+async function fetchImageUrl(pageTitle: string, userAgent: string): Promise<string> {
     if (pageTitle.length < 2) {
         return Promise.reject('Page title to get main image for must have at least two characters');
     }
 
     const queryTitle = pageTitle.trim().replace(/(\s{1})/g, '%20');
-    const client = new rm.RestClient(USER_AGENT);
+    const client = new rm.RestClient(userAgent);
     const url = `https://en.wikipedia.org/w/api.php?action=query&prop=pageimages&format=json&piprop=original&titles=${queryTitle}`;
 
     const response = await client.get<any>(url);
@@ -88,7 +80,7 @@ async function fetchImageUrl(pageTitle: string): Promise<string> {
     return source;
 }
 
-async function fetchAttribution(imageUrl: string): Promise<Attribution> {
+async function fetchAttribution(imageUrl: string, userAgent: string): Promise<Attribution> {
     if (!imageUrl) {
         return Promise.reject('Image URL to fetch attribution for must not be empty');
     }
@@ -105,7 +97,7 @@ async function fetchAttribution(imageUrl: string): Promise<Attribution> {
     console.log(`Fetching attribution for ${fileName}`);
 
     const url = `https://en.wikipedia.org/w/api.php?action=query&prop=imageinfo&iiprop=extmetadata&titles=File%3a${fileName}&format=json`;
-    const client = new rm.RestClient(USER_AGENT);
+    const client = new rm.RestClient(userAgent);
     const response = await client.get<any>(url);
 
     if (response.statusCode !== 200) {
@@ -169,7 +161,7 @@ function parseArtist(text: string): string {
     return "";
 }
 
-async function downloadImage(targetDir: string, url: string, title: string): Promise<string> {
+async function downloadImage(targetDir: string, url: string, title: string, userAgent: string): Promise<string> {
     if (!title || title.trim().length < 2) {
         return Promise.reject('Title to use in file name must have at least two characters');
     }
@@ -180,9 +172,14 @@ async function downloadImage(targetDir: string, url: string, title: string): Pro
     const fileName = title.trim().replace(/(\s+)/g, '_').toLowerCase() + '.jpg';
     const filePath = path.join(targetDir, fileName);
     const file = fs.createWriteStream(filePath);
+    const clientOptions = {
+        headers: {
+            'User-Agent': userAgent,
+        }
+    };
 
     return new Promise<string>((resolve, reject) => {
-        https.get(url, CLIENT_OPTIONS, function (response) {
+        https.get(url, clientOptions, function (response) {
             if (response.statusCode !== 200) {
                 reject(`Unexpected status code received for url ${url} : ${response.statusCode}`);
                 file.close();
@@ -222,12 +219,12 @@ function traverse(obj: any, fieldFn: (key: string, value: any) => boolean): void
     }
 }
 
-async function fetchPageTitle(term: string): Promise<string> {
+async function fetchPageTitle(term: string, userAgent: string): Promise<string> {
     if (term.trim().length < 2) {
         return Promise.reject('Page to search for must have at least two characters');
     }
 
-    const client = new rm.RestClient(USER_AGENT);
+    const client = new rm.RestClient(userAgent);
     const queryTerm = term.trim().replace(/(\s{1})/g, '%20');
     const url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${queryTerm}&limit=1&namespace=*&format=json`;
 
@@ -248,12 +245,12 @@ async function fetchPageTitle(term: string): Promise<string> {
     return title;
 }
 
-async function fetchImageData(searchTerm: string, targetDir: string): Promise<ImageMeta> {
-    const title = await fetchPageTitle(searchTerm);
-    const url = await fetchImageUrl(title);
-    const attribution = await fetchAttribution(url);
+async function fetchImageData(searchTerm: string, targetDir: string, userAgent: string): Promise<ImageMeta> {
+    const title = await fetchPageTitle(searchTerm, userAgent);
+    const url = await fetchImageUrl(title, userAgent);
+    const attribution = await fetchAttribution(url, userAgent);
     // Perform download as a last step to avoid leaving files when other steps failed (e.g. attribution not found).
-    const fileName = await downloadImage(targetDir, url, searchTerm);
+    const fileName = await downloadImage(targetDir, url, searchTerm, userAgent);
 
     return { fileName: fileName, fileUrl: url, article: title, artist: attribution.artist, license: attribution.license };
 }

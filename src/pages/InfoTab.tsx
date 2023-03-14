@@ -1,4 +1,4 @@
-import { IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, getPlatforms } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonContent, IonPage, getPlatforms } from '@ionic/react';
 import './InfoTab.css';
 
 interface InfoTabProps {
@@ -8,15 +8,9 @@ interface InfoTabProps {
 const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
   <IonPage>
     <IonContent className="ion-padding">
-      <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large">Info</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-
       <IonCard>
         <IonCardHeader>
-          <IonCardTitle>How to play</IonCardTitle>
+          <IonCardTitle>How to play Bird Guess</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>
           <p>

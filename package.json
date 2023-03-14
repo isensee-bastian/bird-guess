@@ -47,10 +47,8 @@
     "workbox-streams": "^5.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!(@ionic/react|@ionic/react-router|@ionic/core|@stencil/core|ionicons)/)'",
-    "eject": "react-scripts eject"
+    "start": "ionic serve",
+    "build": "ionic build && ionic cap copy && ionic cap sync"
   },
   "eslintConfig": {
     "extends": [
@@ -71,6 +69,7 @@
     ]
   },
   "devDependencies": {
+    "@capacitor/assets": "^2.0.4",
     "@capacitor/cli": "4.6.2"
   }
 }

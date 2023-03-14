@@ -30,10 +30,16 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 
 // Note: Autoplay of sounds is usually blocked in the browser.
 // Required for release:
+//   * Create screenshots and description for store.
 //   * Setup Play Store access and check what is needed for publishing.
-//   * Add attribution and text to splash screen (or remove it for now).
+//   * Increase splash duration.
+//   * Display score.
+//   * In landscape layout show birds next to each other.
+//   * Add attribution for icon / splash.
 //   * Commit to github (select license), decide how to provide bird media files (due to different license).
 // Nice to have improvements:
+//   * Consider adding more birds if app size stays reasonable (check size reduction options, load attribution page entries lazily, check for accidental non-bird media, remove failed conversions).
+//   * Consider evaluation text at the end depending on score.
 //   * Consider using axios for fetching in scripts.
 //   * Check scripts are not included in delivery (already exculded in tsconfig.json).
 //   * Consider measuring time in additon to points (consider start and stop buttons).
