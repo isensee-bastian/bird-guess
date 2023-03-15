@@ -62,11 +62,11 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
 
   return (
     <IonPage>
-      <IonContent>
-        <IonHeader>
+      <IonHeader>
           <IonProgressBar value={progress}></IonProgressBar>
-        </IonHeader>
+      </IonHeader>
 
+      <IonContent>
         <BirdList
           dir={dir}
           first={first}
@@ -87,7 +87,6 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
           second={second}
           onClose={() => setAttributionOpen(false)}
         />
-
       </IonContent>
     </IonPage >
   );

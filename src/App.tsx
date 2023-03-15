@@ -128,10 +128,10 @@ const App: React.FC = () => {
             </>
           </Route>
           <Route exact path="/tab2">
-            <AttributionsTab birds={allBirds} />
+            <InfoTab version={VERSION} />
           </Route>
           <Route exact path="/tab3">
-            <InfoTab version={VERSION} />
+            <AttributionsTab birds={allBirds} />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
@@ -143,12 +143,12 @@ const App: React.FC = () => {
             <IonLabel>Play</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={book} />
-            <IonLabel>Attribution</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={helpCircle} />
             <IonLabel>Info</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/tab3">
+            <IonIcon icon={book} />
+            <IonLabel>Attribution</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

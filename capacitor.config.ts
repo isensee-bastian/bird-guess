@@ -4,7 +4,13 @@ const config: CapacitorConfig = {
   appId: 'com.github.isenseebastian.birdguess',
   appName: 'Bird Guess',
   webDir: 'build',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  plugins: {
+    SplashScreen: {
+      launchShowDuration: 2000,
+      launchAutoHide: true,
+    },
+  },
 };
 
 export default config;

@@ -24,7 +24,6 @@ const BirdList: React.FC<BirdListProps> = ({ dir, first, second, onConfirm, onAt
                 </IonItem>
             </IonList>
         </div>
-
     );
 };
 
