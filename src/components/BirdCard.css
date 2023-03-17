@@ -1,5 +1,8 @@
 .bird-card {
   width: 280px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .bird-content {

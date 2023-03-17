@@ -1,7 +1,7 @@
 import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonPage, IonProgressBar } from '@ionic/react';
 import './BirdTab.css';
 import { musicalNote } from 'ionicons/icons';
-import BirdList from '../components/BirdList';
+import BirdGrid from '../components/BirdGrid';
 import { useEffect, useState } from 'react';
 import { Bird } from '../models/Meta';
 import AttributionModal from '../components/AttributionModal';
@@ -32,9 +32,7 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 // Required for release:
 //   * Create screenshots and description for store.
 //   * Setup Play Store access and check what is needed for publishing.
-//   * Increase splash duration.
-//   * Display score.
-//   * In landscape layout show birds next to each other.
+//   * Show toasts also in quick succession (consider hiding previous one first).
 //   * Add attribution for icon / splash.
 //   * Commit to github (select license), decide how to provide bird media files (due to different license).
 // Nice to have improvements:
@@ -63,11 +61,11 @@ const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress
   return (
     <IonPage>
       <IonHeader>
-          <IonProgressBar value={progress}></IonProgressBar>
+        <IonProgressBar value={progress}></IonProgressBar>
       </IonHeader>
 
       <IonContent>
-        <BirdList
+        <BirdGrid
           dir={dir}
           first={first}
           second={second}

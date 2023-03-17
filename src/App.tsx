@@ -1,6 +1,7 @@
 import { Redirect, Route } from 'react-router-dom';
 import {
   IonApp,
+  IonBadge,
   IonIcon,
   IonLabel,
   IonProgressBar,
@@ -40,6 +41,8 @@ import { Bird } from './models/Meta';
 import AttributionsTab from './pages/AttributionsTab';
 import InfoTab from './pages/InfoTab';
 import { randomIndexArray, shuffle } from './util/random';
+
+import './App.css'
 
 setupIonicReact();
 
@@ -140,6 +143,7 @@ const App: React.FC = () => {
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
             <IonIcon icon={dice} />
+            <IonBadge>{score}</IonBadge>
             <IonLabel>Play</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
