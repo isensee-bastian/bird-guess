@@ -1,7 +1,7 @@
 import './BirdCard.css';
 
 import React from 'react';
-import { useIonAlert, IonCard, IonCardContent, IonCardHeader, IonButton, IonCardTitle } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonButton, IonCardTitle } from '@ionic/react';
 import { Bird } from '../models/Meta';
 import { join } from '../util/strconv';
 
@@ -9,36 +9,14 @@ import { join } from '../util/strconv';
 interface BirdCardProps {
     dir: string;
     bird: Bird;
-    onConfirm: (name: string) => void;
+    onChosen: (name: string) => void;
     onAttribution: () => void;
 }
 
-const BirdCard: React.FC<BirdCardProps> = ({ dir, bird, onConfirm, onAttribution }) => {
-    const [presentAlert] = useIonAlert();
-
-    const showConfirm = () => {
-        presentAlert({
-            header: bird.name,
-            message: `Are you guessing ${bird.name}?`,
-            buttons: [
-                {
-                    text: 'No',
-                    role: 'cancel',
-                },
-                {
-                    text: 'Yes',
-                    role: 'confirm',
-                    handler: () => {
-                        onConfirm(bird.name);
-                    },
-                },
-            ],
-        });
-    };
-
+const BirdCard: React.FC<BirdCardProps> = ({ dir, bird, onChosen, onAttribution }) => {
     return (
         <IonCard className="bird-card" button={true}>
-            <div onClick={() => showConfirm()}>
+            <div onClick={() => onChosen(bird.name)}>
                 <IonCardHeader >
                     <IonCardTitle>{bird.name}</IonCardTitle>
                 </IonCardHeader>

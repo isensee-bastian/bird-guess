@@ -9,9 +9,9 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonToast,
   setupIonicReact,
-  useIonAlert,
-  useIonToast
+  useIonAlert
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
@@ -43,10 +43,9 @@ import InfoTab from './pages/InfoTab';
 import { randomIndexArray, shuffle } from './util/random';
 
 import './App.css'
+import { APP_VERSION } from './version';
 
 setupIonicReact();
-
-const VERSION = '0.1.0';
 
 const FILE_DIR = 'assets/birds/';
 
@@ -73,10 +72,34 @@ const App: React.FC = () => {
     }
   }, [restart]);
 
-  const [showSolutionToast] = useIonToast();
   const [showScoreAlert] = useIonAlert();
+  const [showToast, setShowToast] = useState({ show: false, correct: false });
 
-  const onChosen = (name: string) => {
+  const [presentAlert] = useIonAlert();
+
+  const showConfirm = (name: string) => {
+    setShowToast({ show: false, correct: false });
+
+    presentAlert({
+      header: name,
+      message: `Are you guessing ${name}?`,
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+        },
+        {
+          text: 'Yes',
+          role: 'confirm',
+          handler: () => {
+            onConfirm(name);
+          },
+        },
+      ],
+    });
+  };
+
+  const onConfirm = (name: string) => {
     if (!birds || !correctOffsets) {
       // Shield against initial state loading not done yet.
       return;
@@ -85,15 +108,9 @@ const App: React.FC = () => {
     const correctBird = birds[round * 2 + correctOffsets[round]];
     const correct: boolean = correctBird.name === name;
     const newScore = correct ? score + 1 : score;
-    setScore(newScore);
 
-    showSolutionToast({
-      message: correct ? 'Correct answer!' : 'Wrong answer...',
-      duration: 2000,
-      position: 'bottom',
-      color: correct ? 'success' : 'danger',
-      icon: correct ? checkmarkOutline : closeOutline
-    });
+    setScore(newScore);
+    setShowToast({ show: true, correct: correct });
 
     if (round < ROUNDS_COUNT - 1) {
       setRound(round + 1);
@@ -121,17 +138,26 @@ const App: React.FC = () => {
                   second={birds[round * 2 + 1]}
                   correct={birds[round * 2 + correctOffsets[round]]}
                   progress={(round + 1) / 10}
-                  onChosen={(name) => onChosen(name)}
+                  onChosen={(name) => showConfirm(name)}
                 />
               }
               {
                 (!birds || !correctOffsets) &&
                 <IonProgressBar type="indeterminate"></IonProgressBar>
               }
+              <IonToast
+                isOpen={showToast.show}
+                onDidDismiss={() => setShowToast({ show: false, correct: false })}
+                message={showToast.correct ? 'Correct answer!' : 'Wrong answer...'}
+                duration={2000}
+                position='bottom'
+                color={showToast.correct ? 'success' : 'danger'}
+                icon={showToast.correct ? checkmarkOutline : closeOutline}
+              />
             </>
           </Route>
           <Route exact path="/tab2">
-            <InfoTab version={VERSION} />
+            <InfoTab version={APP_VERSION} />
           </Route>
           <Route exact path="/tab3">
             <AttributionsTab birds={allBirds} />

@@ -8,19 +8,19 @@ interface BirdGridProps {
     dir: string;
     first: Bird;
     second: Bird;
-    onConfirm: (name: string) => void;
+    onChosen: (name: string) => void;
     onAttribution: () => void;
 }
 
-const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, onConfirm, onAttribution }) => {
+const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, onChosen, onAttribution }) => {
     return (
         <IonGrid>
             <IonRow class="ion-justify-content-center">
                 <IonCol size="12" size-sm="6">
-                    <BirdCard dir={dir} bird={first} onConfirm={() => onConfirm(first.name)} onAttribution={onAttribution} />
+                    <BirdCard dir={dir} bird={first} onChosen={onChosen} onAttribution={onAttribution} />
                 </IonCol>
                 <IonCol size="12" size-sm="6">
-                    <BirdCard dir={dir} bird={second} onConfirm={() => onConfirm(second.name)} onAttribution={onAttribution} />
+                    <BirdCard dir={dir} bird={second} onChosen={onChosen} onAttribution={onAttribution} />
                 </IonCol>
             </IonRow>
         </IonGrid>

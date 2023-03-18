@@ -49,6 +49,7 @@
   },
   "scripts": {
     "start": "ionic serve",
+    "prebuild": "node -p \"'export const APP_VERSION = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build": "ionic build && ionic cap copy && ionic cap sync"
   },
   "eslintConfig": {
