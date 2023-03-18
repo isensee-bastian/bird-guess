@@ -44,8 +44,10 @@ const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
             for others. Pictures are taken from <a href='https://www.wikimedia.org/'>wikimedia.org</a> and
             recordings from <a href='https://xeno-canto.org/'>xeno-canto.org</a>. Please click the attributions
             tab or attributions button below bird images for specific media authors, URLs and licenses.
-            Another big thanks goes to <a href='https://www.bird-sounds.net/'>bird-sounds.net</a> for their
-            comprehensive bird overview from A to Z.
+            The title image has been adapted from <a href='https://en.wikipedia.org/wiki/Scissor-tailed_flycatcher#/media/File:Tyrannus_forficatus_on_branch.jpg'>
+              Tyrannus forficatus on branch.jpg</a> by Kramer, Gary - U.S. Fish and Wildlife Service,
+            licensed under Public Domain. Another big thanks goes to <a href='https://www.bird-sounds.net/'>bird-sounds.net</a> for
+            their comprehensive bird overview from A to Z.
           </p>
         </IonCardContent>
       </IonCard>
@@ -74,7 +76,7 @@ const InfoTab: React.FC<InfoTabProps> = ({ version }) => (
       </IonCard>
 
     </IonContent>
-  </IonPage>
+  </IonPage >
 );
 
 export default InfoTab;

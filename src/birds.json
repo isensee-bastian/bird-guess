@@ -1,5 +1,23 @@
 [
     {
+        "name": "Scissor-tailed flycatcher",
+        "image": {
+            "fileName": "scissor-tailed_flycatcher.jpg",
+            "fileUrl": "https://upload.wikimedia.org/wikipedia/commons/4/45/Tyrannus_forficatus_on_branch.jpg",
+            "article": "Scissor-tailed flycatcher",
+            "artist": "Kramer, Gary",
+            "license": "Public domain"
+        },
+        "sound": {
+            "fileName": "scissor-tailed_flycatcher.mp3",
+            "fileUrl": "https://xeno-canto.org/538195/download",
+            "length": "0:17",
+            "recordist": "Caleb Helsel",
+            "url": "https://xeno-canto.org/538195",
+            "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+        }
+    },
+    {
         "name": "Golden-cheeked warbler",
         "image": {
             "fileName": "golden-cheeked_warbler.jpg",

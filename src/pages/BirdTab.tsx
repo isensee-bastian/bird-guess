@@ -32,7 +32,6 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
 // Required for release:
 //   * Create screenshots and description for store.
 //   * Setup Play Store access and check what is needed for publishing.
-//   * Add attribution for icon / splash.
 //   * Commit to github (select license), decide how to provide bird media files (due to different license).
 // Nice to have improvements:
 //   * Consider adding more birds if app size stays reasonable (check size reduction options, load attribution page entries lazily, check for accidental non-bird media, remove failed conversions).
