@@ -16,14 +16,14 @@ const BirdGrid: React.FC<BirdGridProps> = ({ dir, first, second, onChosen, onAtt
     return (
         <IonGrid>
             <IonRow class="ion-justify-content-center">
-                <IonCol size="12" size-sm="6">
+                <IonCol size="12" size-sm="auto">
                     <BirdCard dir={dir} bird={first} onChosen={onChosen} onAttribution={onAttribution} />
                 </IonCol>
-                <IonCol size="12" size-sm="6">
+                <IonCol size="12" size-sm="auto">
                     <BirdCard dir={dir} bird={second} onChosen={onChosen} onAttribution={onAttribution} />
                 </IonCol>
             </IonRow>
-        </IonGrid>
+        </IonGrid >
     );
 };
 
