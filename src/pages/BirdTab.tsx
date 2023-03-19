@@ -28,21 +28,6 @@ const playSound = (sound: HTMLAudioElement | undefined) => {
   }
 };
 
-// Note: Autoplay of sounds is usually blocked in the browser.
-// Required for release:
-//   * Create screenshots and description for store.
-//   * Setup Play Store access and check what is needed for publishing.
-//   * Commit to github (select license), decide how to provide bird media files (due to different license).
-// Nice to have improvements:
-//   * Consider adding more birds if app size stays reasonable (check size reduction options, load attribution page entries lazily, check for accidental non-bird media, remove failed conversions).
-//   * Consider using axios for fetching in scripts.
-//   * Check scripts are not included in delivery (already exculded in tsconfig.json).
-//   * Consider measuring time in additon to points (consider start and stop buttons).
-//   * Check if there is a better alternative for having a "correct" field in BirdTabProps.
-//   * Consider showing a guess history for the current game.
-//   * Add error handling for sound playing.
-//   * Consider refactoring state to objects.
-//   * Consider harmonizing attribution format in terms of license (name vs link inconsistency).
 const BirdTab: React.FC<BirdTabProps> = ({ dir, first, second, correct, progress, onChosen }) => {
 
   const [sound, setSound] = useState<HTMLAudioElement>();
