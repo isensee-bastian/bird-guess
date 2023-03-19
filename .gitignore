@@ -32,6 +32,3 @@ yarn-error.log*
 
 # Optional eslint cache
 .eslintcache
-
-# Exclude bird media by default to avoid bloating the repository.
-public/assets/birds/*
