@@ -15,7 +15,7 @@ import {
 } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import { IonReactRouter } from '@ionic/react-router';
-import { book, checkmarkOutline, closeOutline, dice, helpCircle } from 'ionicons/icons';
+import { checkmarkOutline, closeOutline, diceOutline, helpCircleOutline, informationCircleOutline } from 'ionicons/icons';
 import BirdTab from './pages/BirdTab';
 import allBirds from './birds.json';
 
@@ -150,7 +150,7 @@ const App: React.FC = () => {
                 onDidDismiss={() => setShowToast({ show: false, correct: false })}
                 message={showToast.correct ? 'Correct answer!' : 'Wrong answer...'}
                 duration={2000}
-                position='bottom'
+                position='top'
                 color={showToast.correct ? 'success' : 'danger'}
                 icon={showToast.correct ? checkmarkOutline : closeOutline}
               />
@@ -168,16 +168,16 @@ const App: React.FC = () => {
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={dice} />
+            <IonIcon icon={diceOutline} />
             <IonBadge>{score}</IonBadge>
             <IonLabel>Play</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={helpCircle} />
-            <IonLabel>Info</IonLabel>
+            <IonIcon icon={helpCircleOutline} />
+            <IonLabel>Help</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={book} />
+            <IonIcon icon={informationCircleOutline} />
             <IonLabel>Attribution</IonLabel>
           </IonTabButton>
         </IonTabBar>
