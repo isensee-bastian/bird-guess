@@ -1,6 +1,6 @@
 {
   "name": "bird-guess",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@capacitor/android": "4.6.2",
